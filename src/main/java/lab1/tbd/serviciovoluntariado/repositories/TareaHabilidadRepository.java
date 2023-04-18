@@ -14,4 +14,5 @@ public interface TareaHabilidadRepository {
     void deleteTareaHabilidadById(Long id);
     void deleteTareaHabilidad();
 
+
 }

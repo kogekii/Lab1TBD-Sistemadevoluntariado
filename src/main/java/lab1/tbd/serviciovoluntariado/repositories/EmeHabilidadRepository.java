@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface EmeHabilidadRepository {
     Long generateId();
+    public int countTareaHabilidad();
     EmeHabilidad createEmeHabilidad(EmeHabilidad emeHabilidad);
     EmeHabilidad getEmeHabilidadById(Long id);
     List<EmeHabilidad> getAllEmeHabilidad();

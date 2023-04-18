@@ -12,6 +12,21 @@ public class EmeHabilidadRepositoryImp implements EmeHabilidadRepository{
     private Sql2o sql2o;
 
     @Override
+    public int countTareaHabilidad() {
+        String sql = "SELECT COUNT(*) FROM tareaHabilidad";
+        Connection conn = sql2o.open();
+        try (conn) {
+            return conn.createQuery(sql).executeScalar(Integer.class);
+        }catch(Exception e){
+            System.out.println(e);
+            return 0;
+        }finally{
+            conn.close();
+        }
+    }
+
+
+    @Override
     public Long generateId() {
         Long newId;
         String queryId = "select max(id) form eme_habilidad";
