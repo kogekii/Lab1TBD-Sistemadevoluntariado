@@ -1,3 +1,4 @@
+/*
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
@@ -13,3 +14,4 @@ public interface TareaRepository {
     public Tarea updateTarea(Tarea t);
     public void deleteTareaById(int id);
 }
+*/

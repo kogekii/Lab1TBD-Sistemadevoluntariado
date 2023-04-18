@@ -1,26 +1,19 @@
-
-/*
-
 package lab1.tbd.serviciovoluntariado.repositories;
 
-import lab1.tbd.serviciovoluntariado.models.Tarea;
+import lab1.tbd.serviciovoluntariado.models.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
-import java.util.Objects;
 
-@Repository
-public class TareaRepositoryImp implements TareaRepository{
-
+public class VoluntarioRepositoryImp implements VoluntarioRepository{
     @Autowired
     private Sql2o sql2o;
 
     @Override
-    public int countTarea() {
-        String sql = "SELECT COUNT(*) FROM tarea";
+    public int countVoluntario() {
+        String sql = "SELECT COUNT(*) FROM voluntario";
         Connection conn = sql2o.open();
         try (conn) {
             return conn.createQuery(sql).executeScalar(Integer.class);
@@ -31,13 +24,12 @@ public class TareaRepositoryImp implements TareaRepository{
             conn.close();
         }
     }
-
     @Override
-    public List<Tarea> getAllTarea() {
-        String sql = "SELECT * FROM tarea";
+    public List<Voluntario> getAllVoluntario() {
+        String sql = "SELECT * FROM voluntario";
         Connection conn = sql2o.open();
         try (conn) {
-            return conn.createQuery(sql).executeAndFetch(Tarea.class);
+            return conn.createQuery(sql).executeAndFetch(Voluntario.class);
         }catch(Exception e){
             System.out.println(e);
             return null;
@@ -47,11 +39,11 @@ public class TareaRepositoryImp implements TareaRepository{
     }
 
     @Override
-    public Tarea getTareaById(int id) {
-        String sql = "SELECT * FROM tarea WHERE id = :id";
+    public Voluntario getVoluntarioById(int id) {
+        String sql = "SELECT * FROM voluntario WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
-            return conn.createQuery(sql).addParameter("id", id).executeAndFetchFirst(Tarea.class);
+            return conn.createQuery(sql).addParameter("id", id).executeAndFetchFirst(Voluntario.class);
         }catch(Exception e){
             System.out.println(e);
             return null;
@@ -59,20 +51,19 @@ public class TareaRepositoryImp implements TareaRepository{
             conn.close();
         }
     }
+
     @Override
-    public Tarea createTarea(Tarea t) {
-        String sql = "INSERT INTO tarea (id, nombre, descrip, cant_vol_requeridos, " +
-                "cant_vol_inscritos, id_emergencia, finicio, ffin, id_estado) " +
-                "VALUES (:id, :nombre, :descrip, :cant_vol_requeridos, :cant_vol_inscritos," +
-                " :id_emergencia, :finicio, :ffin, :id_estado)";
+    public Voluntario createVoluntario(Voluntario v) {
+        String sql = "INSERT INTO voluntario (id, nombre) " +
+                "VALUES (:id, :nombre)";
         Connection conn = sql2o.open();
         try (conn) {
             int id = (int) conn.createQuery(sql,true)
-                    .bind(t)
+                    .bind(v)
                     .executeUpdate()
                     .getKey();
-            t.setId((long) id);
-            return t;
+            v.setId((long) id);
+            return v;
         }catch(Exception e){
             System.out.println(e);
             return null;
@@ -81,17 +72,14 @@ public class TareaRepositoryImp implements TareaRepository{
         }
     }
     @Override
-    public Tarea updateTarea(Tarea t) {
-        String sql = "UPDATE tarea SET nombre = :nombre, descrip = :descrip, " +
-                "cant_vol_requeridos = :cant_vol_requeridos, cant_vol_inscritos = :cant_vol_inscritos, " +
-                "id_emergencia = :id_emergencia, finicio = :finicio, ffin = :ffin, " +
-                "id_estado = :id_estado WHERE id = :id";
+    public Voluntario updateVoluntario(Voluntario v) {
+        String sql = "UPDATE voluntario SET nombre = :nombre WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
             conn.createQuery(sql)
-                    .bind(t)
+                    .bind(v)
                     .executeUpdate();
-            return t;
+            return v;
         }catch(Exception e){
             System.out.println(e);
             return null;
@@ -99,10 +87,9 @@ public class TareaRepositoryImp implements TareaRepository{
             conn.close();
         }
     }
-
     @Override
-    public void deleteTareaById(int id) {
-        String sql = "DELETE FROM tarea WHERE id = :id";
+    public void deleteVoluntarioById(int id) {
+        String sql = "DELETE FROM voluntario WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
             conn.createQuery(sql)
@@ -117,4 +104,3 @@ public class TareaRepositoryImp implements TareaRepository{
 
 
 }
-*/
