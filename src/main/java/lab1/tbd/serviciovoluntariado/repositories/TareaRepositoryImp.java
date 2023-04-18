@@ -1,6 +1,4 @@
 
-/*
-
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
@@ -12,7 +10,6 @@ import org.sql2o.Sql2o;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
 public class TareaRepositoryImp implements TareaRepository{
 
     @Autowired
@@ -117,4 +114,3 @@ public class TareaRepositoryImp implements TareaRepository{
 
 
 }
-*/
