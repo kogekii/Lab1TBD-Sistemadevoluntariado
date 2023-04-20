@@ -4,13 +4,13 @@ package lab1.tbd.serviciovoluntariado.models;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @EntityScan
-public class Instituicion {
+public class Institucion {
 
     private Long id;
     private String nombre;
     private String descrip;
 
-    public Instituicion(Long id, String nombre, String descrip) {
+    public Institucion(Long id, String nombre, String descrip) {
         this.id = id;
         this.nombre = nombre;
         this.descrip = descrip;
