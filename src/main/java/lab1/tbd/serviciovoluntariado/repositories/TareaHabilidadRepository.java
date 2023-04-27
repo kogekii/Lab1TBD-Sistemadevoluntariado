@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface TareaHabilidadRepository {
     Long generateId();
+    Integer countTareaHabilidad();
     TareaHabilidad createTareaHabilidad(TareaHabilidad tareaHabilidad);
     TareaHabilidad getTareaHabilidadById(Long id);
     List<TareaHabilidad> getAllTareaHabilidad();

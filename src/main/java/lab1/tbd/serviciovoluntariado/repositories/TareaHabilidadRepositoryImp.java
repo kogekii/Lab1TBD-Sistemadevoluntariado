@@ -2,11 +2,17 @@ package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.TareaHabilidad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
 
+@Component
+@Configuration
+@Repository
 public class TareaHabilidadRepositoryImp implements TareaHabilidadRepository {
     @Autowired
     private Sql2o sql2o;
@@ -27,6 +33,23 @@ public class TareaHabilidadRepositoryImp implements TareaHabilidadRepository {
         catch(Exception e){
             System.out.println(e.getMessage());
             return null;
+        }
+        finally{
+            conn.close();
+        }
+    }
+
+    @Override
+    public Integer countTareaHabilidad() {
+        final String query = "select count(*) from tarea";
+        Connection conn = sql2o.open();
+        try{
+            Integer count = conn.createQuery(query)
+                    .executeScalar(Integer.class);
+            return count;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return 0;
         }
         finally{
             conn.close();

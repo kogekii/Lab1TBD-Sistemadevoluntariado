@@ -2,11 +2,17 @@ package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Institucion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
 
+@Component
+@Configuration
+@Repository
 public class InstitucionRepositoryImp implements InstitucionRepository{
 
     @Autowired

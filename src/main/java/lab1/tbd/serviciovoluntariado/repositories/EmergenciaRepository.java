@@ -4,6 +4,7 @@ import lab1.tbd.serviciovoluntariado.models.Emergencia;
 
 import java.util.List;
 
+
 public interface EmergenciaRepository {
     public int countEmergencia();
     public List<Emergencia> getAllEmergencia();
