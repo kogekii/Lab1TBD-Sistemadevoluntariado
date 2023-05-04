@@ -30,6 +30,11 @@ public class TareaService {
         return tareaRepository.countTarea();
     }
 
+    @GetMapping("/byemergencia/{id}")
+    public List<Tarea> getTareaByEmeId(@PathVariable(value = "id") int id){
+        return tareaRepository.getTareaByEmeId(id);
+    }
+
     @PostMapping
     @ResponseBody
     public Tarea createTarea(@RequestBody Tarea tarea){

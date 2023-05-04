@@ -10,18 +10,18 @@ public class Tarea {
     private String nombre;
     private String descrip;
     private Integer cant_vol_requeridos;
-    private Integer catn_vol_inscritos;
+    private Integer cant_vol_inscritos;
     private Long id_emergencia;
     private Date finicio;
     private Date ffin;
     private Long id_estado;
 
-    public Tarea(Long id, String nombre, String descrip, Integer cant_vol_requeridos, Integer catn_vol_inscritos, Long id_emergencia, Date finicio, Date ffin, Long id_estado) {
+    public Tarea(Long id, String nombre, String descrip, Integer cant_vol_requeridos, Integer cant_vol_inscritos, Long id_emergencia, Date finicio, Date ffin, Long id_estado) {
         this.id = id;
         this.nombre = nombre;
         this.descrip = descrip;
         this.cant_vol_requeridos = cant_vol_requeridos;
-        this.catn_vol_inscritos = catn_vol_inscritos;
+        this.cant_vol_inscritos = cant_vol_inscritos;
         this.id_emergencia = id_emergencia;
         this.finicio = finicio;
         this.ffin = ffin;
@@ -61,11 +61,11 @@ public class Tarea {
     }
 
     public Integer getCatn_vol_inscritos() {
-        return catn_vol_inscritos;
+        return cant_vol_inscritos;
     }
 
     public void setCatn_vol_inscritos(Integer catn_vol_inscritos) {
-        this.catn_vol_inscritos = catn_vol_inscritos;
+        this.cant_vol_inscritos = catn_vol_inscritos;
     }
 
     public Long getId_emergencia() {

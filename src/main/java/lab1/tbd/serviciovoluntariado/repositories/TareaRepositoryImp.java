@@ -10,7 +10,6 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
-import java.util.Objects;
 
 @Component
 @Configuration
@@ -61,6 +60,21 @@ public class TareaRepositoryImp implements TareaRepository{
             conn.close();
         }
     }
+
+    @Override
+    public List<Tarea> getTareaByEmeId(int id) {
+        String sql = "SELECT * FROM tarea WHERE id_emergencia = :id";
+        Connection conn = sql2o.open();
+        try (conn) {
+            return conn.createQuery(sql).addParameter("id", id).executeAndFetch(Tarea.class);
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }finally{
+            conn.close();
+        }
+    }
+    
     @Override
     public Tarea createTarea(Tarea t) {
         String sql = "INSERT INTO tarea (id, nombre, descrip, cant_vol_requeridos, " +

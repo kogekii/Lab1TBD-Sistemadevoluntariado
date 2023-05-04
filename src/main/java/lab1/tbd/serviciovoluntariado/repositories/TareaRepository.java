@@ -10,6 +10,7 @@ public interface TareaRepository {
     public int countTarea();
     public List<Tarea> getAllTarea();
     public Tarea getTareaById(int id);
+    public List<Tarea> getTareaByEmeId(int id);
     public Tarea createTarea(Tarea t);
     public Tarea updateTarea(Tarea t);
     public void deleteTareaById(int id);
