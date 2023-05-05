@@ -64,8 +64,8 @@ public class Tarea {
         return cant_vol_inscritos;
     }
 
-    public void setCatn_vol_inscritos(Integer catn_vol_inscritos) {
-        this.cant_vol_inscritos = catn_vol_inscritos;
+    public void setCatn_vol_inscritos(Integer cant_vol_inscritos) {
+        this.cant_vol_inscritos = cant_vol_inscritos;
     }
 
     public Long getId_emergencia() {

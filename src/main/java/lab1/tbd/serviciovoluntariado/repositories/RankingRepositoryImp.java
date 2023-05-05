@@ -61,6 +61,20 @@ public class RankingRepositoryImp implements RankingRepository{
     }
 
     @Override
+    public List<Ranking> getRankingByTareaId(int id) {
+        String sql = "SELECT * FROM ranking Where id_tarea = :id ORDER BY puntaje DESC";
+        Connection conn = sql2o.open();
+        try (conn) {
+            return conn.createQuery(sql).executeAndFetch(Ranking.class);
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }finally{
+            conn.close();
+        }
+    }
+
+    @Override
     public Ranking createRanking(Ranking r) {
         String sql = "INSERT INTO ranking (id, id_voluntario, id_tarea, puntaje, " +
                 "flg_invitado, flg_participa) " +

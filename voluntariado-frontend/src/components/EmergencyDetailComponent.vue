@@ -21,11 +21,12 @@
                     <td>{{ tarea.nombre }}</td>
                     <td>{{ tarea.descrip }}</td>
                     <td>{{ tarea.cant_vol_requeridos }}</td>
-                    <td>{{ tarea.cant_vol_inscritos }}</td>
+                    <td>{{ tarea.catn_vol_inscritos }}</td>
                     <td>{{ tarea.id_emergencia }}</td>
                     <td>{{ tarea.finicio }}</td>
                     <td>{{ tarea.ffin }}</td>
                     <td>{{ tarea.id_estado }}</td>
+                    <td><Router-link :to="{path: '/tarea/' + tarea.id}"  style="color:black">GO</Router-link></td>
                 </tr>
             </tbody>
         </table>
@@ -37,7 +38,8 @@ export default {
     name: 'Emergencia',
     data() {
         return {
-            emergency: []
+            emergency: [],
+            voluntarioRanking: []
 
         };
     },

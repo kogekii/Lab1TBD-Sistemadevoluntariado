@@ -25,6 +25,11 @@ public class RankingService {
         return rankingRepository.getRankingById(id);
     }
 
+    @GetMapping("/bytarea/{id}")
+    public List<Ranking> getRankingByTareaId(@PathVariable(value = "id") int id){
+        return rankingRepository.getRankingByTareaId(id);
+    }
+
     @GetMapping("/count")
     public Integer countRanking(){
         return rankingRepository.countRanking();
