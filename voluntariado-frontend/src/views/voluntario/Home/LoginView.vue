@@ -77,10 +77,29 @@ export default {
 	justify-content: center;
 	gap: 4px;
 	grid-auto-flow: column;
+  background: -webkit-linear-gradient(90deg, #278666 10%, #fccb6e 90%);
+  background:    -moz-linear-gradient(90deg, #65997d 10%, #fccb6e 90%);
+  background:     -ms-linear-gradient(90deg, #65997d 10%, #fccb6e 90%);
+  background:      -o-linear-gradient(90deg, #28a863 10%, #fccb6e 90%);
+  background:         linear-gradient(90deg, #65997d 10%, #fccb6e 90%);
+
 
 	.card {
 		min-width: 400px;
 		max-width: 500px;
-	}
+    border: black 2px solid;
+
+ }
+  .card-title {
+    text-align:center;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0;
+    text-shadow: -3px -3px 3px #d7c236, 3px -3px 3px rgba(17, 217, 17, 0.48), -3px 3px 3px #d9bc11, 3px 3px 3px rgba(67, 173, 116, 0.63);
+  }
+  .form-control {
+    border: 1.5px solid #020000;
+  }
 }
 </style>
