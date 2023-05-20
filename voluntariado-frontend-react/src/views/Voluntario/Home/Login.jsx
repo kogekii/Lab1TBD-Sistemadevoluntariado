@@ -4,10 +4,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
+import Alert from 'react-bootstrap/Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from '../../../services/Session/Session';
 import useTitle from '../../../hooks/title';
+
 const FORMIK_INIT_VALUES = {
 	email: '',
 	password: '',
@@ -38,8 +40,11 @@ export default function VoluntarioLoginView(){
 		validateOnBlur: true,
 		validateOnChange: false,
 		validate: formikValidator,
-		onSubmit: values => {
-			alert(JSON.stringify(values, null, 2));
+		onSubmit: (values, { setSubmitting, setFieldError }) => {
+			session.login(values.email, values.password).catch(err => {
+				setFieldError("authentication", "No se pudo iniciar sesion!");
+				setSubmitting(false);
+			})
 		},
 	});
 
@@ -88,6 +93,9 @@ export default function VoluntarioLoginView(){
 							/>
 						</Form.Group>
 						<Button variant="link" as={Link} to="/v/account-recover">Olvidé mi contraseña</Button>
+						{(formik.errors?.authentication) && (
+							<Alert className="mt-2 mb-0" variant="danger">{formik.errors.authentication}</Alert>
+						)}
 					</Card.Body>
 					<Card.Footer className="card-action-footer">
 						<Button variant="outline-primary" className="me-auto" as={Link} to="/s/login">

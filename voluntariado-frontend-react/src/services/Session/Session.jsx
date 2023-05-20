@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext } from "react";
 import { isExpired, decodeToken } from "react-jwt";
+import axios from "axios";
 import config from "../../config";
 import { useStorageReducer } from "../../hooks/storage-reducer";
 
@@ -83,10 +84,10 @@ const reducerHandler = (state, action) => {
 export function SessionProvider({ children }){
     const [state, dispatch] = useStorageReducer(config.STORAGE_SESSION_KEY, reducerHandler, initReducer);
 
-    const login = useCallback((email, password, remember=false) => {
-        const token = 'TOKEN123456789'+email+remember;
-        const refreshToken = 'TOKEN123456789'+password;
-        dispatch({ type: actions.INIT_SESSION, token, refreshToken });
+    const login = useCallback(async (email, password, remember=false) => {
+        const res = await axios.post('/api/login', { email, password });
+        const token = res.data.token;
+        dispatch({ type: actions.INIT_SESSION, token });
     }, [dispatch]);
 
     const logout = useCallback(() => dispatch({ type: actions.RESET_SESSION }), [dispatch]);
