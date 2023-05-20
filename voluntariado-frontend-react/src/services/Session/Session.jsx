@@ -86,7 +86,7 @@ export function SessionProvider({ children }){
 
     const login = useCallback(async (email, password, remember=false) => {
         const res = await axios.post('/api/login', { email, password });
-        const token = res.data.token;
+        const token = res.headers.authorization;
         dispatch({ type: actions.INIT_SESSION, token });
     }, [dispatch]);
 
