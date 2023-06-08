@@ -6,10 +6,10 @@ import java.util.List;
 
 
 public interface EmergenciaRepository {
-    public int countEmergencia();
-    public List<Emergencia> getAllEmergencia();
-    public Emergencia getEmergenciaById(int id);
-    public Emergencia createEmergencia(Emergencia h);
-    public Emergencia updateEmergencia(Emergencia h);
-    public void deleteEmergenciaById(int id);
+    public String createEmergencia(Emergencia emergencia); //Create
+    public List<Emergencia> getAllEmergencias(); //Read
+    public String updateEmergencia(int id, Emergencia emergencia); //Update
+    public String deleteEmergencia(int id);
+    public Emergencia getEmergenciaById(Integer id);
+    public int getIdEmergenciaMayor();
 }

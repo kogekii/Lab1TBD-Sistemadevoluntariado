@@ -12,40 +12,44 @@ import java.util.List;
 @RequestMapping("/emergencia")
 public class EmergenciaService {
 
-    @Autowired
-    EmergenciaRepository emergenciaRepository;
+    private final EmergenciaRepository emergenciaRepository;
 
-    @GetMapping
-    public List<Emergencia> getAllEmergencia(){
-        return emergenciaRepository.getAllEmergencia();
+    //Constructor
+    EmergenciaService(EmergenciaRepository emergenciaRepository){
+        this.emergenciaRepository = emergenciaRepository;
     }
 
-    @GetMapping("/{id}")
+    //Create
+    @PostMapping("/emergencies")
+    @ResponseBody
+    public String createEmergencia(@RequestBody Emergencia emergencia){
+        return emergenciaRepository.createEmergencia(emergencia);
+    }
+
+    //Read all
+    @GetMapping("/emergencies")
+    public List<Emergencia> getAllEmergencias(){
+        return emergenciaRepository.getAllEmergencias();
+    }
+
+    //Leer uno
+    @GetMapping("/emergencies/{id}")
+    @ResponseBody
     public Emergencia getEmergenciaById(@PathVariable int id){
-        return emergenciaRepository.getEmergenciaById(id);
+        return this.emergenciaRepository.getEmergenciaById(id);
     }
 
-    @GetMapping("/count")
-    public Integer countEmergencia(){
-        return emergenciaRepository.countEmergencia();
-    }
-
-    @PostMapping
+    //Update
+    @PutMapping("/emergencies/update/{id}")
     @ResponseBody
-    public Emergencia createEmergencia(@RequestBody Emergencia emergencia){
-        Emergencia result = emergenciaRepository.createEmergencia(emergencia);
-        return result;
+    public String updateEmergencia(@PathVariable int id, @RequestBody Emergencia emergencia){
+        return emergenciaRepository.updateEmergencia(id, emergencia);
     }
 
-    @PutMapping
+    //Delete
+    @DeleteMapping("/emergencies/delete/{id}")
     @ResponseBody
-    public Emergencia updateEmergencia(@RequestBody Emergencia emergencia){
-        Emergencia result = emergenciaRepository.updateEmergencia(emergencia);
-        return result;
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteEmergenciaById(@PathVariable int id){
-        emergenciaRepository.deleteEmergenciaById(id);
+    public String deleteEmergencia(@PathVariable int id){
+        return emergenciaRepository.deleteEmergencia(id);
     }
 }

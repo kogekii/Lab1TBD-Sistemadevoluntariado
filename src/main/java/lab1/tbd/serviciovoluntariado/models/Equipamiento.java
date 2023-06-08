@@ -1,27 +1,19 @@
 package lab1.tbd.serviciovoluntariado.models;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 import java.util.Date;
 
-@EntityScan
-public class Emergencia {
-
-    private Long id;
+public class Equipamiento {
+    private int id;
     private String nombre;
-    private String ubicacion;
-    private Date fecha;
     private String descripcion;
-    private String coordenadas;
+    private Integer id_voluntario;
     private Date created_at;
     private Date updated_at;
 
-    //Getter y Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -33,28 +25,20 @@ public class Emergencia {
         this.nombre = nombre;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Integer getId_voluntario() {
+        return id_voluntario;
+    }
+
+    public void setId_voluntario(Integer id_voluntario) {
+        this.id_voluntario = id_voluntario;
     }
 
     public Date getCreated_at() {
@@ -71,11 +55,5 @@ public class Emergencia {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
-    }
-    public String getCoordenadas() {
-        return coordenadas;
-    }
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
     }
 }
