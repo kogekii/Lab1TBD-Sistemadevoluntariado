@@ -8,7 +8,7 @@ export default function VoluntarioDashboardIndexView(){
         <div className="dashboard-layout">
             <Appbar />
             <Routes>
-                <Route index path="" element={<Navigate to="emergency" />} />
+                <Route index path="" element={<Navigate to="emergency" replace />} />
                 <Route path="emergency" element={<EmergencyView />} />
                 <Route path="emergency/:id" element={<EmergencyDetailView />} />
             </Routes>

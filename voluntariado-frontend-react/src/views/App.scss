@@ -5,7 +5,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-	background: linear-gradient(to bottom right, blue, pink);
+	background-color: color-mix(in srgb, var(--bs-primary) 5%, white);
 }
 
 .abs-center {
@@ -13,6 +13,7 @@ body {
 	place-items: center;
 	min-height: 100vh;
 	max-width: 100vw;
+	background: linear-gradient(to bottom right, blue, pink);
 }
 
 .card-action-footer {
@@ -37,41 +38,42 @@ body {
 	width: 100%;
 	max-width: 500px;
 }
-.card-title {
-	text-align: center;
-	color: #FCDB00;
-	font-family: impact;
-	font-size: 40px;
-	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000;
-	-webkit-text-fill-color: #FCDB00;
-	-webkit-text-stroke: 1.5px black;
-}
-.bg-primary {
-	font-family: impact;
-	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000;
-	font-size: 19px;
-	-webkit-text-fill-color: #fcdb00;
-	-webkit-text-stroke: 0px black;
-}
-.me-auto {
-	font-size: 18px;
-	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000;
-	-webkit-text-fill-color: #d9bc11;
-	-webkit-text-stroke: 0.1px #020000;
-}
-.btn {
-	color: #020000FF;
-	border: 1.6px solid #000000;
 
-}
-.form-label {
-	font-family: impact;
-}
-.form-control {
-	color: #212529;
-	border: 2px solid #000000;
+// .card-title {
+// 	text-align: center;
+// 	color: #FCDB00;
+// 	font-family: impact;
+// 	font-size: 40px;
+// 	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000;
+// 	-webkit-text-fill-color: #FCDB00;
+// 	-webkit-text-stroke: 1.5px black;
+// }
+// .bg-primary {
+// 	font-family: impact;
+// 	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000;
+// 	font-size: 19px;
+// 	-webkit-text-fill-color: #fcdb00;
+// 	-webkit-text-stroke: 0px black;
+// }
+// .me-auto {
+// 	font-size: 18px;
+// 	text-shadow: -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 1px #000, 1px -1px 1px #000;
+// 	-webkit-text-fill-color: #d9bc11;
+// 	-webkit-text-stroke: 0.1px #020000;
+// }
+// .btn {
+// 	color: #020000FF;
+// 	border: 1.6px solid #000000;
 
-}
-.form-check-input[type=checkbox] {
-	border: 1.5px solid #000000;
-}
+// }
+// .form-label {
+// 	font-family: impact;
+// }
+// .form-control {
+// 	color: #212529;
+// 	border: 2px solid #000000;
+
+// }
+// .form-check-input[type=checkbox] {
+// 	border: 1.5px solid #000000;
+// }
