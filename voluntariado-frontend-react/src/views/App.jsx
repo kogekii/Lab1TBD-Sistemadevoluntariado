@@ -2,7 +2,7 @@ import { Navigate, Route, Routes, BrowserRouter } from 'react-router-dom';
 import './App.scss';
 
 import SupervisorLoginView from './Supervisor/Home/Login';
-import VoluntarioIndexView from './Voluntario/Index';
+import VoluntarioRouter from './Voluntario/Router';
 import { SessionProvider } from '../services/Session/Session';
 // import EmergencyPage from './pages/EmergencyPage';
 // import EmergencyDetailPage from './pages/EmergencyDetailPage';
@@ -14,7 +14,7 @@ function App() {
 		<SessionProvider>
 			<Routes>
 				<Route index path="/" element={<Navigate to="/v/login" replace={true} />} />
-				<Route path="/v/*" element={<VoluntarioIndexView />} />
+				<Route path="/v/*" element={<VoluntarioRouter />} />
 				<Route path="/s/*" element={<SupervisorLoginView />} />
 			</Routes>
 		</SessionProvider>

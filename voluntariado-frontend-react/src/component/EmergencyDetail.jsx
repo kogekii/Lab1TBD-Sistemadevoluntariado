@@ -1,43 +1,70 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-export default function EmergencyDetail(props) {
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        axios.get(`http://localhost:8080/tarea/byemergencia/${props.id}`)
-            .then((res) => {
-                setData(res.data)
-            })
-    })
+import { Fragment } from "react";
+import Card from "react-bootstrap/esm/Card";
+import Table from "react-bootstrap/esm/Table";
+import { Link } from "react-router-dom";
+
+export default function EmergencyDetail({ emergencia, tareas }) {
     return (
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope='col'>ID</th>
-                    <th scope='col'>Nombre</th>
-                    <th scope='col'>Descripción</th>
-                    <th scope='col'>Cantidad de Voluntarios Requeridos</th>
-                    <th scope='col'>ID de Emergencia</th>
-                    <th scope='col'>Fecha de Inicio</th>
-                    <th scope='col'>Fecha de Fin</th>
-                    <th scope='col'>ID de Estado</th>
-                    <th scope='col'>Cantidad de Voluntarios Inscritos</th>
-                </tr>
-            </thead>
-            <tbody>
-                {data.map((item) => (
-                    <tr key={item.id}>
-                        <td scope='row'>{item.id}</td>
-                        <td>{item.nombre}</td>
-                        <td>{item.descrip}</td>
-                        <td>{item.cant_vol_requeridos}</td>
-                        <td>{item.id_emergencia}</td>
-                        <td>{item.finicio}</td>
-                        <td>{item.ffin}</td>
-                        <td>{item.id_estado}</td>
-                        <td>{item.catn_vol_inscritos}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <Fragment>
+            <Card className="mb-2">
+                <Card.Header>{emergencia.nombre}</Card.Header>
+                <Card.Body>
+                    <Table size="sm">
+                        <tbody>
+                            <tr>
+                                <td width="20%">
+                                    <strong>Descripción:</strong>
+                                </td>
+                                <td>{emergencia.descrip}</td>
+                            </tr>
+                            <tr>
+                                <td width="20%">
+                                    <strong>Fecha Inicio:</strong>
+                                </td>
+                                <td>{emergencia.finicio}</td>
+                            </tr>
+                            <tr>
+                                <td width="20%">
+                                    <strong>Fecha Término:</strong>
+                                </td>
+                                <td>{emergencia.ffin}</td>
+                            </tr>
+                            <tr>
+                                <td width="20%">
+                                    <strong>Institución:</strong>
+                                </td>
+                                <td><Link>{emergencia.id_institucion}</Link></td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </Card.Body>
+            </Card>
+            <Card>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th scope='col'>Nombre</th>
+                            <th scope='col'>Descripción</th>
+                            <th scope='col'>ID de Estado</th>
+                            <th scope='col'>Inscritos</th>
+                            <th scope='col'>Fecha de Inicio</th>
+                            <th scope='col'>Fecha de Fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tareas.map((tarea) => (
+                            <tr key={tarea.id}>
+                                <td>{tarea.nombre}</td>
+                                <td>{tarea.descrip}</td>
+                                <td>{tarea.id_estado}</td>
+                                <td>{tarea.catn_vol_inscritos}/{tarea.cant_vol_requeridos}</td>
+                                <td>{tarea.finicio}</td>
+                                <td>{tarea.ffin}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </Card>
+        </Fragment>
     )
 }

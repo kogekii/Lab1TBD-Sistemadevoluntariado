@@ -5,8 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { useSession } from '../../../services/Session/Session';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+// import { useSession } from '../../../services/Session/Session';
 import useTitle from '../../../hooks/title';
 
 const FORMIK_INIT_VALUES = {
@@ -30,7 +30,7 @@ const formikValidator = values => {
 
 export default function SupervisorLoginView(){
 	useTitle('Supervisor - Iniciar Sesión');
-	const session = useSession();
+	// const session = useSession();
 
 	const formik = useFormik({
 		initialValues: FORMIK_INIT_VALUES,

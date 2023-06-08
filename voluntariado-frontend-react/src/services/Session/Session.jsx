@@ -13,6 +13,14 @@ class SessionError extends Error {
 
 SessionError.NOT_AUTHENTICATED = Symbol.for('NOT_AUTHENTICATED');
 
+function getToken(res){
+    let token = res.headers.authorization;
+    if(config.SESSION_TOKEN_PREFIX && token.startsWith(config.SESSION_TOKEN_PREFIX)){
+        token = token.replace(config.SESSION_TOKEN_PREFIX, '');
+    }
+    return token;
+}
+
 export const SessionContext = createContext({
     isAuthenticated: false,
     isExpired: false,
@@ -56,7 +64,7 @@ const reducerHandler = (state, action) => {
         const decoded = decodeToken(token);
         return {
             token,
-            refreshToken: action.refreshToken,
+            refreshToken: null,
             isAuthenticated: true,
             isExpired: expired,
             decodedToken: decoded,
@@ -86,7 +94,7 @@ export function SessionProvider({ children }){
 
     const login = useCallback(async (email, password, remember=false) => {
         const res = await axios.post('/api/login', { email, password });
-        const token = res.headers.authorization;
+        const token = getToken(res);
         dispatch({ type: actions.INIT_SESSION, token });
     }, [dispatch]);
 
@@ -99,9 +107,14 @@ export function SessionProvider({ children }){
             throw new SessionError(SessionError.NOT_AUTHENTICATED, 'No hay ningúna sesión de usuario iniciada!');
         }
         if(state.isExpired){
-            console.log(state.refreshToken);
-            // ask for another token with verificationTOken
-            return { ...state };
+            dispatch({ type: actions.RESET_SESSION });
+            return {
+                isAuthenticated: false,
+                isExpired: false,
+                token: null,
+                refreshToken: null,
+                storage: {},
+            };
         }
         return state;
     };

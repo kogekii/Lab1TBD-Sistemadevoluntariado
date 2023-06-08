@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useFormik } from 'formik';
+import { AxiosError } from 'axios';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -34,6 +36,7 @@ const formikValidator = values => {
 
 export default function VoluntarioLoginView(){
 	useTitle('Voluntario - Iniciar Sesión');
+	const [loading, setLoading] = useState(false);
 	const session = useSession();
 	const formik = useFormik({
 		initialValues: FORMIK_INIT_VALUES,
@@ -41,10 +44,16 @@ export default function VoluntarioLoginView(){
 		validateOnChange: false,
 		validate: formikValidator,
 		onSubmit: (values, { setSubmitting, setFieldError }) => {
+			setLoading(true);
 			session.login(values.email, values.password).catch(err => {
-				setFieldError("authentication", "No se pudo iniciar sesion!");
+				if(err instanceof AxiosError){
+					if(err.response.status === 401) setFieldError("authentication", "Las credenciales son inválidas!");
+					else setFieldError("authentication", "No se pudo iniciar sesión!");
+				}
+				else setFieldError("authentication", "Ocurrió un error inesperado!");
 				setSubmitting(false);
 			})
+			.finally(() => setLoading(false));
 		},
 	});
 
@@ -66,6 +75,7 @@ export default function VoluntarioLoginView(){
 								onBlur={formik.handleBlur}
 								isInvalid={formik.touched.email && !!formik.errors?.email}
 								value={formik.values.email}
+								disabled={loading}
 							/>
 							<Form.Control.Feedback type="invalid">{formik.errors?.email}</Form.Control.Feedback>
 						</Form.Group>
@@ -79,6 +89,7 @@ export default function VoluntarioLoginView(){
 								onBlur={formik.handleBlur}
 								isInvalid={formik.touched.password && !!formik.errors?.password}
 								value={formik.values.password}
+								disabled={loading}
 							/>
 							<Form.Control.Feedback type="invalid">{formik.errors?.password}</Form.Control.Feedback>
 						</Form.Group>
@@ -90,6 +101,7 @@ export default function VoluntarioLoginView(){
 								onChange={formik.handleChange}
 								isInvalid={formik.touched.remember && !!formik.errors?.remember}
 								checked={formik.values.remember}
+								disabled={loading}
 							/>
 						</Form.Group>
 						<Button variant="link" as={Link} to="/v/account-recover">Olvidé mi contraseña</Button>
@@ -102,7 +114,7 @@ export default function VoluntarioLoginView(){
 							<FontAwesomeIcon icon={faUser} /> Supervisores
 						</Button>
 						<Button variant="outline-primary" as={Link} to="/v/register">Ir a Registrar</Button>
-						<Button variant="primary" type="submit">Ingresar</Button>
+						<Button variant="primary" type="submit" disabled={loading}>{loading ? 'Loading…' : 'Ingresar'}</Button>
 					</Card.Footer>
 				</Form>
 			</Card>
