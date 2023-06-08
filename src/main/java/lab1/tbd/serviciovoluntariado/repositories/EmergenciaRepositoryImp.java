@@ -9,6 +9,9 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Component
@@ -19,99 +22,162 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     @Autowired
     private Sql2o sql2o;
 
+
     @Override
-    public int countEmergencia() {
-        String sql = "SELECT COUNT(*) FROM emergencia";
-        Connection conn = sql2o.open();
-        try (conn) {
-            return conn.createQuery(sql).executeScalar(Integer.class);
+    public int getIdEmergenciaMayor(){
+        try(Connection conn = sql2o.open()){
+            Emergencia auxiliar = conn.createQuery("SELECT * FROM emergencia ORDER BY id DESC").executeAndFetchFirst(Emergencia.class);
+            return auxiliar.getId();
         }catch(Exception e){
-            System.out.println(e);
-            return 0;
-        }finally{
-            conn.close();
+            System.out.println(e.getMessage());
+            return 1;
         }
     }
 
-    @Override
-    public List<Emergencia> getAllEmergencia() {
-        String sql = "SELECT * FROM emergencia";
-        Connection conn = sql2o.open();
-        try (conn) {
-            return conn.createQuery(sql).executeAndFetch(Emergencia.class);
-        }catch(Exception e){
-            System.out.println(e);
-            return null;
-        }finally{
-            conn.close();
-        }
-    }
 
     @Override
-    public Emergencia getEmergenciaById(int id) {
-        String sql = "SELECT * FROM emergencia WHERE id = :id";
-        Connection conn = sql2o.open();
-        try (conn) {
-            return conn.createQuery(sql).addParameter("id", id).executeAndFetchFirst(Emergencia.class);
-        }catch(Exception e){
-            System.out.println(e);
-            return null;
-        }finally{
-            conn.close();
-        }
-    }
+    public String createEmergencia(Emergencia emergencia) {
+        String sql =
+                "INSERT INTO emergencia (id, nombre, ubicacion, fecha, descripcion,coordenadas) " +
+                        "VALUES (:id, :nombre, :ubicacion, :fecha, :descripcion,ST_GeomFromText(:coordenadas,4326))";
 
-    @Override
-    public Emergencia createEmergencia(Emergencia t) {
-        String sql = "INSERT INTO emergencia (id, nombre, descrip, finicio, " +
-                "ffin, id_institucion) " +
-                "VALUES (:id, :nombre, :descrip, :finicio, :ffin, :id_institucion)";
-        Connection conn = sql2o.open();
-        try (conn) {
-            int id = (int) conn.createQuery(sql,true)
-                    .bind(t)
-                    .executeUpdate()
-                    .getKey();
-            t.setId((long) id);
-            return t;
-        }catch(Exception e){
-            System.out.println(e);
-            return null;
-        }finally{
-            conn.close();
-        }
-    }
+        int nuevoId = getIdEmergenciaMayor() + 1;
 
-    @Override
-    public Emergencia updateEmergencia(Emergencia t) {
-        String sql = "UPDATE emergencia SET nombre = :nombre, descrip = :descrip, " +
-                "finicio = :finicio, ffin = :ffin, id_institucion = :id_institucion " +
-                "WHERE id = :id";
-        Connection conn = sql2o.open();
-        try (conn) {
+        try (Connection conn = sql2o.open()) {
             conn.createQuery(sql)
-                    .bind(t)
+                    .addParameter("id", nuevoId)
+                    .addParameter("nombre", emergencia.getNombre())
+                    .addParameter("ubicacion", emergencia.getUbicacion())
+                    .addParameter("fecha", emergencia.getFecha())
+                    .addParameter("descripcion", emergencia.getDescripcion())
+                    .addParameter("coordenadas","POINT("+emergencia.getCoordenadas()+")")
                     .executeUpdate();
-            return t;
-        }catch(Exception e){
-            System.out.println(e);
+
+            return "Se ha creado la emergencia con id: " + nuevoId;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return null;
-        }finally{
-            conn.close();
         }
     }
+
     @Override
-    public void deleteEmergenciaById(int id) {
-        String sql = "DELETE FROM emergencia WHERE id = :id";
-        Connection conn = sql2o.open();
-        try (conn) {
-            conn.createQuery(sql)
-                    .addParameter("id", id)
+    public List<Emergencia> getAllEmergencias() {
+        final String sql =
+                "SELECT * FROM emergencia";
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .executeAndFetch(Emergencia.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Emergencia getEmergenciaById(long id){
+        String sql = "SELECT * FROM emergencia WHERE id = :eid";
+
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery(sql)
+                    .addParameter("eid", id)
+                    .executeAndFetchFirst(Emergencia.class);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public String updateEmergencia(long id, Emergencia emergencia) {
+        String updateSql = "UPDATE emergencia " +
+                "SET nombre = :emergenciaNombre, ubicacion = :emergenciaUbicacion, " +
+                "fecha = :emergenciaFecha, descripcion = :emergenciaDescripcion, updated_at = :emergenciaFechaActualizacion, " +
+                "coordenadas = ST_GeomFromText(:emergenciaCoordenadas,4326)"+
+                "WHERE id = :emergenciaID";
+
+        //Se colnsigue el timestamp actual para la actualización
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+
+
+        //Se consigue el valor actual de la emergencia, que sera actualizado
+
+        try (Connection con = sql2o.open()) {
+            Emergencia antiguo = con.createQuery("SELECT * FROM emergencia where id = :idE")
+                    .addParameter("idE", id)
+                    .executeAndFetchFirst(Emergencia.class);
+
+            //Se verifica si existe la tupla que se desea actualizar
+            if(antiguo == null){
+                return ("No existe la emergencia con id: " + id);
+            }
+
+            //Se ejectua la actualizacion, llenando los parametros de la consulta segun corresponda
+            Query consulta = con.createQuery(updateSql);
+            consulta.addParameter("emergenciaID", id);
+
+            if(emergencia.getNombre() != null){
+                consulta.addParameter("emergenciaNombre", emergencia.getNombre());
+            } else {
+                consulta.addParameter("emergenciaNombre", antiguo.getNombre());
+            }
+
+            if(emergencia.getUbicacion() != null){
+                consulta.addParameter("emergenciaUbicacion", emergencia.getUbicacion());
+            } else {
+                consulta.addParameter("emergenciaUbicacion",antiguo.getUbicacion());
+            }
+
+            if(emergencia.getFecha() != null){
+                consulta.addParameter("emergenciaFecha", emergencia.getFecha());
+            } else {
+                consulta.addParameter("emergenciaFecha", antiguo.getFecha());
+            }
+
+            if(emergencia.getDescripcion() != null){
+                consulta.addParameter("emergenciaDescripcion", emergencia.getDescripcion());
+            } else {
+                consulta.addParameter("emergenciaDescripcion", antiguo.getDescripcion());
+            }
+
+            if (emergencia.getCoordenadas()!=null){
+                consulta.addParameter("emergenciaCoordenadas","POINT("+emergencia.getCoordenadas()+")");
+            }else {
+                consulta.addParameter("emergenciaCoordenadas","POINT("+antiguo.getCoordenadas()+")");
+            }
+            //Se cambia la fecha de actualizacion
+            consulta.addParameter("emergenciaFechaActualizacion",timestamp);
+
+            consulta.executeUpdate();
+
+            return ("La emergencia de id: " + id + " se actualizo correctamente");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public String deleteEmergencia(long id) {
+        String deleteSql = "DELETE FROM emergencia e WHERE e.id = "+id;
+
+        try(Connection conn = sql2o.open()){
+
+            Emergencia tupla = conn.createQuery("SELECT * FROM emergencia where id = :idE")
+                    .addParameter("idE", id)
+                    .executeAndFetchFirst(Emergencia.class);
+            if(tupla == null){
+                return ("No existe la emergencia con id: " + id);
+            }
+
+            conn.createQuery(deleteSql)
                     .executeUpdate();
-        }catch(Exception e){
-            System.out.println(e);
-        }finally{
-            conn.close();
+            return "Se ha eliminado la emergencia "+id;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 

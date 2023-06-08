@@ -7,11 +7,10 @@ import java.util.List;
 
 public interface TareaRepository {
 
-    public int countTarea();
-    public List<Tarea> getAllTarea();
-    public Tarea getTareaById(int id);
-    public List<Tarea> getTareaByEmeId(int id);
-    public Tarea createTarea(Tarea t);
-    public Tarea updateTarea(Tarea t);
-    public void deleteTareaById(int id);
+    public Tarea createTarea(Tarea tarea); //Create
+    public List<Tarea> getAllTareas(); //Read
+    public String updateTarea(long id, Tarea tarea); //Update
+    public String deleteTarea(long id);
+    public Tarea getTarea(long id);
+    public List<Tarea> getTareasByRegion(int gid);
 }
