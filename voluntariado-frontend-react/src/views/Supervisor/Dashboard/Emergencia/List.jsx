@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import { useSession } from '../../../../services/Session/Session';
-import EmergencyList from '../../../../component/EmergencyList/EmergencyList';
+import EmergencyList from '../../../../component/Emergency/EmergencyList';
 
 const INIT_STATE = {
 	loading: true,

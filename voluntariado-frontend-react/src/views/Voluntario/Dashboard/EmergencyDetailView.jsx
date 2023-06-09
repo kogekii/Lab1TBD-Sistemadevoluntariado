@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import { useSession } from '../../../services/Session/Session';
-import EmergencyDetail from '../../../component/EmergencyDetail';
+import EmergencyDetail from '../../../component/Emergency/EmergencyDetail';
 
 const INIT_STATE = {
 	loading: true,

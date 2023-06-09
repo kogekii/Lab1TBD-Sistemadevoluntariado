@@ -1,13 +1,16 @@
-import React, { useEffect, useReducer } from 'react';
+import { Fragment, useEffect, useReducer } from 'react';
 import axios from 'axios';
-import Container from 'react-bootstrap/Container';
-import { useSession } from '../../../services/Session/Session';
-import EmergencyList from '../../../component/Emergency/EmergencyList';
+import { useParams } from 'react-router-dom';
+import Container from 'react-bootstrap/esm/Container';
+import { useSession } from '../../../../services/Session/Session';
+import TaskDetail from '../../../../component/Task/TaskDetail';
+import TaskRank from '../../../../component/Task/TaskRank';
 
 const INIT_STATE = {
 	loading: true,
 	error: null,
-	emergencias: [],
+	tarea: null,
+	ranking: [],
 };
 
 const actions = {
@@ -28,39 +31,52 @@ const reducerHandler = (state, action) => {
 			...state,
 			loading: false,
 			error: null,
-			emergencias: action.emergencias,
+			tarea: action.tarea,
+			ranking: action.ranking,
 		};
 	}
 	return state;
 };
 
-export default function EmergencyView() {
+export default function TareaView() {
 	const [state, dispatch] = useReducer(reducerHandler, INIT_STATE);
 	const session = useSession();
+	const { id } = useParams();
 
     useEffect(() => {
 		dispatch({ type: actions.FETCH_LOADING });
 		session.validate().then((sess) => {
-			axios.get('/api/emergencia', {
-				headers: { 'Authorization': 'Bearer '+sess.token },
-			})
-			.then((res) => {
-				dispatch({ type: actions.FETCH_SUCCESS, emergencias: res.data });
+			Promise.all([
+				axios.get('/api/tarea/' + id, {
+					headers: { 'Authorization': 'Bearer '+sess.token },
+				}),
+				axios.get('/api/ranking/by-tarea/' + id, {
+					headers: { 'Authorization': 'Bearer '+sess.token },
+				}),
+			])
+			.then(([res1, res2]) => {
+				dispatch({
+					type: actions.FETCH_SUCCESS,
+					tarea: res1.data,
+					ranking: res2.data,
+				});
 			})
 			.catch(err => dispatch({ type: actions.FETCH_ERROR, error: err.message }));
 		})
 		.catch(err => dispatch({ type: actions.FETCH_ERROR, error: err.message }));
-    }, [session]);
+    }, [id, session]);
 
 	return (
 		<Container style={{ paddingBlock: '1rem' }}>
-			<h2>Emergencias</h2>
 			{state.loading ? (
 				<div className="loading">Cargando...</div>
 			):(state.error ? (
 				<div className="error">{state.error}</div>
 			):(
-				<EmergencyList emergencias={state.emergencias} />
+				<Fragment>
+					<TaskDetail className="mb-2" tarea={state.tarea} />
+					<TaskRank ranking={state.ranking} />
+				</Fragment>
 			))}
 		</Container>
 	)

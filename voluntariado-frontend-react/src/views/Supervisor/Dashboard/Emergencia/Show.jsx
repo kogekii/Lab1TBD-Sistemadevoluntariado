@@ -1,15 +1,18 @@
-import { useEffect, useReducer } from 'react';
+import { Fragment, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import { useSession } from '../../../../services/Session/Session';
-import EmergencyDetail from '../../../../component/EmergencyDetail';
+import EmergencyDetail from '../../../../component/Emergency/EmergencyDetail';
+import EmergencyTasks from '../../../../component/Emergency/EmergencyTasks';
+import EmergencyRank from '../../../../component/Emergency/EmergencyRank';
 
 const INIT_STATE = {
 	loading: true,
 	error: null,
 	emergencia: null,
 	tareas: [],
+	ranking: [],
 };
 
 const actions = {
@@ -32,6 +35,7 @@ const reducerHandler = (state, action) => {
 			error: null,
 			emergencia: action.emergencia,
 			tareas: action.tareas,
+			ranking: action.ranking,
 		};
 	}
 	return state;
@@ -49,12 +53,20 @@ export default function EmergenciaView() {
 				axios.get('/api/emergencia/' + id, {
 					headers: { 'Authorization': 'Bearer '+sess.token },
 				}),
-				axios.get('/api/tarea/byemergencia/' + id, {
+				axios.get('/api/tarea/by-emergencia/' + id, {
+					headers: { 'Authorization': 'Bearer '+sess.token },
+				}),
+				axios.get('/api/ranking/by-emergencia/' + id, {
 					headers: { 'Authorization': 'Bearer '+sess.token },
 				}),
 			])
-			.then(([res1, res2]) => {
-				dispatch({ type: actions.FETCH_SUCCESS, emergencia: res1.data, tareas: res2.data });
+			.then(([res1, res2, res3]) => {
+				dispatch({
+					type: actions.FETCH_SUCCESS,
+					emergencia: res1.data,
+					tareas: res2.data,
+					ranking: res3.data,
+				});
 			})
 			.catch(err => dispatch({ type: actions.FETCH_ERROR, error: err.message }));
 		})
@@ -68,10 +80,11 @@ export default function EmergenciaView() {
 			):(state.error ? (
 				<div className="error">{state.error}</div>
 			):(
-				<EmergencyDetail
-					emergencia={state.emergencia}
-					tareas={state.tareas}
-				/>
+				<Fragment>
+					<EmergencyDetail className="mb-2" emergencia={state.emergencia} />
+					<EmergencyTasks className="mb-2" tareas={state.tareas} />
+					<EmergencyRank ranking={state.ranking} tareas={state.tareas} />
+				</Fragment>
 			))}
 		</Container>
 	)
