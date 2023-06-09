@@ -1,7 +1,5 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
-import lab1.tbd.serviciovoluntariado.models.Institucion;
-import lab1.tbd.serviciovoluntariado.models.Emergencia;
 import lab1.tbd.serviciovoluntariado.models.Coordinador;
 
 import java.sql.Timestamp;

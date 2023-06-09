@@ -2,41 +2,43 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Component
 @Configuration
 @Repository
-public class TareaRepositoryImp implements TareaRepository{
-
+public class TareaRepositoryImp implements TareaRepository
+{
     @Autowired
     private Sql2o sql2o;
-
 
     @Override
     public Tarea createTarea(Tarea tarea) {
         final String sql =
-                "INSERT INTO tarea (id, nombre, descripcion, id_estado_tarea, id_emergencia, coordenadas) " +
-                        "VALUES (:id ,:nombre, :descripcion, :id_estado_tarea, :id_emergencia, ST_GeomFromText(:coordenadas,4326))";
-
+            "INSERT INTO tarea (id, nombre, descripcion, id_estado_tarea, id_emergencia, coordenadas) " +
+            "VALUES (:id ,:nombre, :descripcion, :id_estado_tarea, :id_emergencia, ST_GeomFromText(:coordenadas,4326))";
 
         try(Connection conn = sql2o.open()){
-            int idNuevo = getIdMayor()+ 1;
+            long idNuevo = getIdMayor() + 1;
             conn.createQuery(sql, true)
-                    .addParameter("id", idNuevo)
-                    .addParameter("nombre", tarea.getNombre())
-                    .addParameter("descripcion", tarea.getDescripcion())
-                    .addParameter("id_estado_tarea", tarea.getIdEstadoTarea())
-                    .addParameter("id_emergencia", tarea.getIdEmergencia())
-                    .addParameter("coordenadas","POINT("+tarea.getCoordenadas()+")")
-                    .executeUpdate();
+                .addParameter("id", idNuevo)
+                .addParameter("nombre", tarea.getNombre())
+                .addParameter("descripcion", tarea.getDescripcion())
+                .addParameter("id_estado_tarea", tarea.getIdEstadoTarea())
+                .addParameter("id_emergencia", tarea.getIdEmergencia())
+                .addParameter("coordenadas","POINT("+tarea.getCoordenadas()+")")
+                .executeUpdate();
             tarea.setId(idNuevo);
             return tarea;
         }catch(Exception e){
@@ -65,7 +67,7 @@ public class TareaRepositoryImp implements TareaRepository{
                 "id_estado_tarea = :tareaid_estado_tarea, id_emergencia = :tareaid_emergencia, coordenadas = ST_GeomFromText(:coordenadas,4326), updated_at = :tareaNuevaFecha " +
                 "WHERE id = :tareaID";
 
-        Date fecha = new Date();
+        Date fecha = new Date(System.currentTimeMillis());
         Timestamp timestamp = new Timestamp(fecha.getTime());
         //Se consigue el valor actual de la tarea, que sera actualizado
         try (Connection con = sql2o.open()) {
@@ -142,11 +144,11 @@ public class TareaRepositoryImp implements TareaRepository{
             return null;
         }
     }
-    public int getIdMayor(){
+    public long getIdMayor(){
         try(Connection conn = sql2o.open()){
-            int aux = conn.createQuery("SELECT id FROM tarea ORDER BY id DESC")
-                    .executeAndFetchFirst(Tarea.class).
-                    getId();
+            long aux = conn.createQuery("SELECT id FROM tarea ORDER BY id DESC")
+                .executeAndFetchFirst(Tarea.class)
+                .getId();
             return aux;
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -168,5 +170,21 @@ public class TareaRepositoryImp implements TareaRepository{
         }
     }
 
+    @Override
+    public List<Tarea> getTareasByRegion(int gid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTareasByRegion'");
+    }
 
+    @Override
+    public List<Tarea> getTareaByEmeId(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTareaByEmeId'");
+    }
+
+    @Override
+    public Integer countTarea() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'countTarea'");
+    }
 }

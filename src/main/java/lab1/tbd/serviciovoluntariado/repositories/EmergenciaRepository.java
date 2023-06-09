@@ -11,5 +11,5 @@ public interface EmergenciaRepository {
     public String updateEmergencia(int id, Emergencia emergencia); //Update
     public String deleteEmergencia(int id);
     public Emergencia getEmergenciaById(Integer id);
-    public int getIdEmergenciaMayor();
+    public long getIdEmergenciaMayor();
 }

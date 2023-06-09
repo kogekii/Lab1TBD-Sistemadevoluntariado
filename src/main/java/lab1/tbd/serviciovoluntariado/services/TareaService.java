@@ -17,12 +17,12 @@ public class TareaService {
 
     @GetMapping
     public List<Tarea> getAllTarea(){
-        return tareaRepository.getAllTarea();
+        return tareaRepository.getAllTareas();
     }
 
     @GetMapping("/{id}")
     public Tarea getTareaById(@PathVariable(value = "id") int id){
-        return tareaRepository.getTareaById(id);
+        return tareaRepository.getTarea(id);
     }
 
     @GetMapping("/count")
@@ -45,12 +45,13 @@ public class TareaService {
     @PutMapping
     @ResponseBody
     public Tarea updateTarea(@RequestBody Tarea tarea){
-        Tarea result = tareaRepository.updateTarea(tarea);
-        return result;
+        tareaRepository.updateTarea(tarea.getId(), tarea);
+        Tarea tarea2 = tareaRepository.getTarea(tarea.getId());
+        return tarea2;
     }
 
     @DeleteMapping("/{id}")
     public void deleteTareaById(@PathVariable(value = "id") int id){
-        tareaRepository.deleteTareaById(id);
+        tareaRepository.deleteTarea(id);
     }
 }

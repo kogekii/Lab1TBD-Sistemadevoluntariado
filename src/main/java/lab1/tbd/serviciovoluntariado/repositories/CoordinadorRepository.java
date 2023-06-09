@@ -1,7 +1,6 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import java.util.List;
-import lab1.tbd.serviciovoluntariado.models.Emergencia;
 import lab1.tbd.serviciovoluntariado.models.Coordinador;
 
 public interface CoordinadorRepository {

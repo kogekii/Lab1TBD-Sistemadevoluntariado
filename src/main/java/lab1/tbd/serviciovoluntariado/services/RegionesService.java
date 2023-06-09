@@ -29,6 +29,6 @@ public class RegionesService {
     @GetMapping("/polyregion/{id}")
     @ResponseBody
     public List<Map<String, Object>> getRegionPoly(@PathVariable long id) {
-        return RegionesRepository.getRegionPoly(id);
+        return RegionesRepository.getRegionPoly((int)id);
     }
 }

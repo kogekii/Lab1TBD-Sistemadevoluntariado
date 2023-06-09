@@ -36,15 +36,15 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public Integer getIdEstadoTarea() {
+    public Long getIdEstadoTarea() {
         return id_estado_tarea;
     }
-    public void setIdEstadoTarea(Integer id) {
+    public void setIdEstadoTarea(Long id) {
         this.id_estado_tarea = id;
     }
 
-    public Integer getIdEmergencia() { return id_emergencia; }
-    public void setIdEmeTarea(Integer id) { this.id_emergencia = id; }
+    public Long getIdEmergencia() { return id_emergencia; }
+    public void setIdEmeTarea(Long id) { this.id_emergencia = id; }
 
     public Date getCreatedAt() {
         return created_at;
