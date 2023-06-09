@@ -11,10 +11,7 @@ import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 import java.sql.Timestamp;
-import java.util.Date;
-
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -32,11 +29,7 @@ public class TareaRepositoryImp implements TareaRepository
             "VALUES (:id ,:nombre, :descripcion, :id_estado_tarea, :id_emergencia, ST_GeomFromText(:coordenadas,4326))";
 
         try(Connection conn = sql2o.open()){
-<<<<<<< HEAD
             Long idNuevo = getIdMayor()+ 1;
-=======
-            long idNuevo = getIdMayor() + 1;
->>>>>>> 63eca21ce59e1b3ac45814616865b27577d9e15f
             conn.createQuery(sql, true)
                 .addParameter("id", idNuevo)
                 .addParameter("nombre", tarea.getNombre())
@@ -150,19 +143,11 @@ public class TareaRepositoryImp implements TareaRepository
             return null;
         }
     }
-<<<<<<< HEAD
     public Long getIdMayor(){
         try(Connection conn = sql2o.open()){
             Long aux = conn.createQuery("SELECT id FROM tarea ORDER BY id DESC")
                     .executeAndFetchFirst(Tarea.class).
                     getId();
-=======
-    public long getIdMayor(){
-        try(Connection conn = sql2o.open()){
-            long aux = conn.createQuery("SELECT id FROM tarea ORDER BY id DESC")
-                .executeAndFetchFirst(Tarea.class)
-                .getId();
->>>>>>> 63eca21ce59e1b3ac45814616865b27577d9e15f
             return aux;
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -182,23 +167,5 @@ public class TareaRepositoryImp implements TareaRepository
             System.out.println(e.getMessage());
             return null;
         }
-    }
-
-    @Override
-    public List<Tarea> getTareasByRegion(int gid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTareasByRegion'");
-    }
-
-    @Override
-    public List<Tarea> getTareaByEmeId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTareaByEmeId'");
-    }
-
-    @Override
-    public Integer countTarea() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'countTarea'");
     }
 }
