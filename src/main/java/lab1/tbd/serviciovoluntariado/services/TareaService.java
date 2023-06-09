@@ -2,7 +2,6 @@ package lab1.tbd.serviciovoluntariado.services;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
 import lab1.tbd.serviciovoluntariado.repositories.TareaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,52 +11,59 @@ import java.util.List;
 @RequestMapping("/tarea")
 public class TareaService {
 
-    private final TareaRepository TareaRepository;
+    private final TareaRepository tareaRepository;
 
-    //Constructor
+    // Constructor
     TareaService(TareaRepository tareaRepository){
-        this.TareaRepository = tareaRepository;
+        this.tareaRepository = tareaRepository;
     }
 
-    //Create
-    @PostMapping("/createtarea")
-    @ResponseBody
-    public Tarea createTarea(@RequestBody Tarea tarea){
-        return TareaRepository.createTarea(tarea);
-    }
-
-    //Read
-    @GetMapping("/tarea/get/{id}")
-    @ResponseBody
-    public Tarea getTarea(@PathVariable Long id){
-        return TareaRepository.getTarea(id);
-    }
-
-    //Read all
-    @GetMapping("/tareas")
+    // READ all
+    @GetMapping
     @ResponseBody
     public List<Tarea> getAllTareas(){
-        return TareaRepository.getAllTareas();
+        return tareaRepository.getAllTareas();
     }
 
-    //Update
-    @PutMapping("/tarea/update/{id}")
+    // CREATE
+    @PostMapping
+    @ResponseBody
+    public Tarea createTarea(@RequestBody Tarea tarea){
+        return tareaRepository.createTarea(tarea);
+    }
+
+    // READ one
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Tarea getTarea(@PathVariable Long id){
+        return tareaRepository.getTarea(id);
+    }
+
+    // UPDATE
+    @PutMapping("/{id}")
     @ResponseBody
     public String updateTarea(@PathVariable Long id, @RequestBody Tarea tarea){
-        return TareaRepository.updateTarea(id, tarea);
+        return tareaRepository.updateTarea(id, tarea);
     }
 
-    //Delete
-    @DeleteMapping("/tarea/delete/id={id}")
+    // DELETE
+    @DeleteMapping("/{id}")
     @ResponseBody
     public String deleteTarea(@PathVariable Long id){
-        return TareaRepository.deleteTarea(id);
+        return tareaRepository.deleteTarea(id);
     }
 
-    //Conseguir tareas por region
-    @GetMapping("/tareaByRegion/{id}")
+    // READ all (by-region)
+    @GetMapping("/by-region/{id}")
     @ResponseBody
     public List<Tarea> getTareasByRegion(@PathVariable Long id){
-        return TareaRepository.getTareasByRegion(id);
+        return tareaRepository.getTareasByRegion(id);
+    }
+
+    // READ all (by-emergencia)
+    @GetMapping("/by-emergencia/{id}")
+    @ResponseBody
+    public List<Tarea> getTareaByEmergenciaId(@PathVariable Long id){
+        return tareaRepository.getTareasByEmergencia(id);
     }
 }

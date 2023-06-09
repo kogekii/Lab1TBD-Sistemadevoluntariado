@@ -157,15 +157,29 @@ public class TareaRepositoryImp implements TareaRepository
 
     public List<Tarea> getTareasByRegion(Long gid){
         final String sql =
-                "SELECT id,nombre,descripcion,id_estado_tarea,id_emergencia, st_x(st_astext(coordenadas)) AS longitude, st_y(st_astext(coordenadas)) AS latitude FROM division_regional dr , tarea t where " +
-                        "ST_CONTAINS(dr.geom,ST_FlipCoordinates(t.coordenadas)) and dr.gid = :tid";
+            "SELECT id,nombre,descripcion,id_estado_tarea,id_emergencia, st_x(st_astext(coordenadas)) AS longitude, st_y(st_astext(coordenadas)) AS latitude FROM division_regional dr , tarea t where " +
+            "ST_CONTAINS(dr.geom,ST_FlipCoordinates(t.coordenadas)) and dr.gid = :tid";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
-                    .addParameter("tid",gid)
-                    .executeAndFetch(Tarea.class);
+                .addParameter("tid",gid)
+                .executeAndFetch(Tarea.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public List<Tarea> getTareasByEmergencia(Long eid) {
+        String sql = "SELECT * FROM tarea WHERE id_emergencia = :id";
+        Connection conn = sql2o.open();
+        try (conn) {
+            return conn.createQuery(sql).addParameter("id", eid).executeAndFetch(Tarea.class);
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }finally{
+            conn.close();
         }
     }
 }

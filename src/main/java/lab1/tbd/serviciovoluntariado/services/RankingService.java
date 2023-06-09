@@ -10,31 +10,36 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/ranking")
-public class RankingService {
-
+public class RankingService
+{
     @Autowired
     RankingRepository rankingRepository;
 
+    // READ all
     @GetMapping
     public List<Ranking> getAllRanking(){
         return rankingRepository.getAllRanking();
     }
 
+    // READ one
     @GetMapping("/{id}")
     public Ranking getRankingById(@PathVariable(value = "id") Long id){
         return rankingRepository.getRankingById(id);
     }
 
-    @GetMapping("/bytarea/{id}")
+    // READ all (by emergencia)
+    @GetMapping("/by-emergencia/{id}")
+    public List<Ranking> getRankingByEmergenciaId(@PathVariable(value = "id") Long id){
+        return rankingRepository.getRankingByEmergenciaId(id);
+    }
+
+    // READ all (by tarea)
+    @GetMapping("/by-tarea/{id}")
     public List<Ranking> getRankingByTareaId(@PathVariable(value = "id") Long id){
         return rankingRepository.getRankingByTareaId(id);
     }
 
-    @GetMapping("/count")
-    public Integer countRanking(){
-        return rankingRepository.countRanking();
-    }
-
+    // CREATE
     @PostMapping
     @ResponseBody
     public Ranking createRanking(@RequestBody Ranking ranking){
@@ -42,6 +47,7 @@ public class RankingService {
         return result;
     }
 
+    // UPDATE
     @PutMapping
     @ResponseBody
     public Ranking updateRanking(@RequestBody Ranking ranking){
@@ -49,8 +55,14 @@ public class RankingService {
         return result;
     }
 
+    // DELETE
     @DeleteMapping
     public void deleteRankingById(@PathVariable(value = "id") Long id){
         rankingRepository.deleteRankingById(id);
+    }
+
+    @GetMapping("/count")
+    public Integer countRanking(){
+        return rankingRepository.countRanking();
     }
 }

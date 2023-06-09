@@ -18,35 +18,35 @@ public class EmergenciaService {
         this.emergenciaRepository = emergenciaRepository;
     }
 
-    //Create
-    @PostMapping("/emergencies")
+    // READ all
+    @GetMapping
+    public List<Emergencia> getAllEmergencias(){
+        return emergenciaRepository.getAllEmergencias();
+    }
+
+    // CREATE
+    @PostMapping
     @ResponseBody
     public String createEmergencia(@RequestBody Emergencia emergencia){
         return emergenciaRepository.createEmergencia(emergencia);
     }
 
-    //Read all
-    @GetMapping("/emergencies")
-    public List<Emergencia> getAllEmergencias(){
-        return emergenciaRepository.getAllEmergencias();
-    }
-
-    //Leer uno
-    @GetMapping("/emergencies/{id}")
+    // READ one
+    @GetMapping("/{id}")
     @ResponseBody
     public Emergencia getEmergenciaById(@PathVariable Long id){
         return this.emergenciaRepository.getEmergenciaById(id);
     }
 
-    //Update
-    @PutMapping("/emergencies/update/{id}")
+    // UPDATE
+    @PutMapping("/{id}")
     @ResponseBody
     public String updateEmergencia(@PathVariable Long id, @RequestBody Emergencia emergencia){
         return emergenciaRepository.updateEmergencia(id, emergencia);
     }
 
-    //Delete
-    @DeleteMapping("/emergencies/delete/{id}")
+    // DELETE
+    @DeleteMapping("/{id}")
     @ResponseBody
     public String deleteEmergencia(@PathVariable Long id){
         return emergenciaRepository.deleteEmergencia(id);

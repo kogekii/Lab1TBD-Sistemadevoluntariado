@@ -9,6 +9,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Component
 @Configuration
@@ -61,17 +62,38 @@ public class RankingRepositoryImp implements RankingRepository{
     }
 
     @Override
-    public List<Ranking> getRankingByTareaId(Long id) {
-        String sql = "SELECT * FROM ranking Where id_tarea = :id ORDER BY puntaje DESC";
+    public List<Ranking> getRankingByTareaId(Long tid) {
+        String sql = "SELECT * FROM ranking Where id_tarea = :tid ORDER BY puntos DESC";
         Connection conn = sql2o.open();
         try (conn) {
-            return conn.createQuery(sql).executeAndFetch(Ranking.class);
-        }catch(Exception e){
-            System.out.println(e);
-            return null;
-        }finally{
+            List<Ranking> results = conn
+                .createQuery(sql)
+                .addParameter("tid", tid)
+                .executeAndFetch(Ranking.class);
             conn.close();
+            return results;
         }
+        catch(Exception e){
+            conn.close();
+            System.out.println(e.getMessage());
+            List<Ranking> emptyList = new ArrayList<Ranking>();
+            return emptyList;
+        }
+    }
+
+    @Override
+    public List<Ranking> getRankingByEmergenciaId(Long eid) {
+        final String sql =
+            "SELECT r.* FROM ranking r, tarea t "+
+            "WHERE r.id_tarea = t.id AND t.id_emergencia = :eid "+
+            "ORDER BY r.puntos DESC";
+        Connection conn = sql2o.open();
+        List<Ranking> results = conn
+            .createQuery(sql)
+            .addParameter("eid", eid)
+            .executeAndFetch(Ranking.class);
+        conn.close();
+        return results;
     }
 
     @Override

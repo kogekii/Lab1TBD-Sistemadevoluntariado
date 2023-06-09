@@ -12,4 +12,5 @@ public interface TareaRepository
     public String deleteTarea(Long id);
     public Tarea getTarea(Long id);
     public List<Tarea> getTareasByRegion(Long gid);
+    public List<Tarea> getTareasByEmergencia(Long eid);
 }
