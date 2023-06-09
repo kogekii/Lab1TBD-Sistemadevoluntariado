@@ -29,7 +29,7 @@ public class RegionesRepositoryImp implements RegionesRepository {
     }
 
     @Override
-    public List<Map<String, Object>> getRegionPoly(int id) {
+    public List<Map<String, Object>> getRegionPoly(Long id) {
         final String sql =
                 "SELECT array_to_string(array_agg, ',') FROM \n" +
                         "(SELECT array_agg( ST_x(geom)||' '||ST_y(geom))  FROM \n" +

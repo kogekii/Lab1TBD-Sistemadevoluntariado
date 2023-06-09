@@ -14,7 +14,7 @@ public class VolRankingTareaRepositoryImp implements VolRankingTareaRepository {
     private Sql2o sql2o;
 
     @Override
-    public List<VolRanking> getVoluntariesRankedPerTask(long id) {
+    public List<VolRanking> getVoluntariesRankedPerTask(Long id) {
         String sql = "SELECT voluntario.id, voluntario.nombre, voluntario.apellido, voluntario.estado_salud, voluntario.correo_electronico, ranking.puntos FROM voluntario, tarea, ranking " +
                 "WHERE voluntario.id = ranking.id_voluntario AND tarea.id = ranking.id_tarea AND tarea.id = :tid " +
                 "ORDER BY ranking.puntos desc";

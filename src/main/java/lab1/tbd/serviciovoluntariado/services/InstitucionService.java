@@ -21,7 +21,7 @@ public class InstitucionService {
     }
 
     @GetMapping("/{id}")
-    public Institucion getInstitucionById(@PathVariable(value = "id") int id){
+    public Institucion getInstitucionById(@PathVariable(value = "id") Long id){
         return institucionRepository.getInstitucionById(id);
     }
 
@@ -45,7 +45,7 @@ public class InstitucionService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteInstitucionById(@PathVariable(value = "id") int id){
+    public void deleteInstitucionById(@PathVariable(value = "id") Long id){
         institucionRepository.deleteInstitucionById(id);
     }
 }

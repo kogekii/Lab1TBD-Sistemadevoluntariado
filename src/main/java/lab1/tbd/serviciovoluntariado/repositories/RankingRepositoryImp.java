@@ -47,7 +47,7 @@ public class RankingRepositoryImp implements RankingRepository{
     }
 
     @Override
-    public Ranking getRankingById(int id) {
+    public Ranking getRankingById(Long id) {
         String sql = "SELECT * FROM ranking WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
@@ -61,7 +61,7 @@ public class RankingRepositoryImp implements RankingRepository{
     }
 
     @Override
-    public List<Ranking> getRankingByTareaId(int id) {
+    public List<Ranking> getRankingByTareaId(Long id) {
         String sql = "SELECT * FROM ranking Where id_tarea = :id ORDER BY puntaje DESC";
         Connection conn = sql2o.open();
         try (conn) {
@@ -116,7 +116,7 @@ public class RankingRepositoryImp implements RankingRepository{
     }
 
     @Override
-    public void deleteRankingById(int id) {
+    public void deleteRankingById(Long id) {
         String sql = "DELETE FROM ranking WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {

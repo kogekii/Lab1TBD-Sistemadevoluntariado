@@ -47,7 +47,7 @@ public class EstadoTareaRepositoryImp implements EstadoTareaRepository{
     }
 
     @Override
-    public EstadoTarea getEstadoTareaById(int id) {
+    public EstadoTarea getEstadoTareaById(Long id) {
         String sql = "SELECT * FROM estado_tarea WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
@@ -97,7 +97,7 @@ public class EstadoTareaRepositoryImp implements EstadoTareaRepository{
     }
 
     @Override
-    public void deleteEstadoTareaById(int id) {
+    public void deleteEstadoTareaById(Long id) {
         String sql = "DELETE FROM estado_tarea WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {

@@ -21,12 +21,12 @@ public class RankingService {
     }
 
     @GetMapping("/{id}")
-    public Ranking getRankingById(@PathVariable(value = "id") int id){
+    public Ranking getRankingById(@PathVariable(value = "id") Long id){
         return rankingRepository.getRankingById(id);
     }
 
     @GetMapping("/bytarea/{id}")
-    public List<Ranking> getRankingByTareaId(@PathVariable(value = "id") int id){
+    public List<Ranking> getRankingByTareaId(@PathVariable(value = "id") Long id){
         return rankingRepository.getRankingByTareaId(id);
     }
 
@@ -50,7 +50,7 @@ public class RankingService {
     }
 
     @DeleteMapping
-    public void deleteRankingById(@PathVariable(value = "id") int id){
+    public void deleteRankingById(@PathVariable(value = "id") Long id){
         rankingRepository.deleteRankingById(id);
     }
 }

@@ -28,7 +28,7 @@ public class RegionesService {
     //Consigue coodenadas del poligono por la id
     @GetMapping("/polyregion/{id}")
     @ResponseBody
-    public List<Map<String, Object>> getRegionPoly(@PathVariable long id) {
+    public List<Map<String, Object>> getRegionPoly(@PathVariable Long id) {
         return RegionesRepository.getRegionPoly(id);
     }
 }

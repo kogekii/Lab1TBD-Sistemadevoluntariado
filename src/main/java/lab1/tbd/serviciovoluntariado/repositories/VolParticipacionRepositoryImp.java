@@ -15,7 +15,7 @@ public class VolParticipacionRepositoryImp implements VolParticipacionRepository
     private Sql2o sql2o;
 
     @Override
-    public List<VolParticipacion> getVoluntariesPerParticipation(int id) {
+    public List<VolParticipacion> getVoluntariesPerParticipation(Long id) {
 
         String sql = "select v.id, v.nombre, v.apellido, count (v.id) as cantidad_tareas" +
                 " from voluntario v, voluntario_tarea vt, " +

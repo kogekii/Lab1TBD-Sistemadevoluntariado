@@ -1,16 +1,16 @@
 package lab1.tbd.serviciovoluntariado.models;
 
 public class VolParticipacion {
-    private int id;
+    private Long id;
     private String nombre;
     private String apellido;
     private int cantidad_tareas;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

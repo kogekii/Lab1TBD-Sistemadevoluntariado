@@ -15,7 +15,7 @@ public class VolRankingRequerimientosService {
 
     @GetMapping("/voluntarioHabilidades/{id}")
     @ResponseBody
-    public List<VolCantidadHabilidades> getVoluntarioHabilidades(@PathVariable int id){
+    public List<VolCantidadHabilidades> getVoluntarioHabilidades(@PathVariable Long id){
         return volRankingRequerimientosRepository.getVoluntariosRequerimiento(id);
     }
 

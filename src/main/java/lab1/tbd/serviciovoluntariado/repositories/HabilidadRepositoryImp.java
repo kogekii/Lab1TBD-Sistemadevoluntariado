@@ -46,7 +46,7 @@ public class HabilidadRepositoryImp implements HabilidadRepository{
     }
 
     @Override
-    public Habilidad getHabilidadById(int id) {
+    public Habilidad getHabilidadById(Long id) {
         String sql = "SELECT * FROM habilidad WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
@@ -98,7 +98,7 @@ public class HabilidadRepositoryImp implements HabilidadRepository{
     }
 
     @Override
-    public void deleteHabilidadById(int id) {
+    public void deleteHabilidadById(Long id) {
         String sql = "DELETE FROM habilidad WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
@@ -113,7 +113,7 @@ public class HabilidadRepositoryImp implements HabilidadRepository{
     }
 
     @Override
-    public List<Habilidad> getHabilidadByEmergency(int id) {
+    public List<Habilidad> getHabilidadByEmergency(Long id) {
         String sql = "SELECT * FROM habilidad WHERE id IN (SELECT id_habilidad FROM eme_habilidad WHERE id_emergencia = :id)";
         Connection conn = sql2o.open();
         try (conn) {

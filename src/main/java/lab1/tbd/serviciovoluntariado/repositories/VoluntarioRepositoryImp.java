@@ -45,7 +45,7 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
     }
 
     @Override
-    public Voluntario getVoluntarioById(int id) {
+    public Voluntario getVoluntarioById(Long id) {
         String sql = "SELECT * FROM voluntario WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
@@ -94,7 +94,7 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
         }
     }
     @Override
-    public void deleteVoluntarioById(int id) {
+    public void deleteVoluntarioById(Long id) {
         String sql = "DELETE FROM voluntario WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {

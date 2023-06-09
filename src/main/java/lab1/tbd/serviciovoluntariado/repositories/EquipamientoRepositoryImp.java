@@ -17,19 +17,19 @@ public class EquipamientoRepositoryImp implements EquipamientoRepository {
     private Sql2o sql2o;
 
     @Override
-    public int getIdEquipamientoMayor(){
+    public Long getIdEquipamientoMayor(){
         try (Connection conn=sql2o.open() ){
             Equipamiento aux=conn.createQuery("SELECT * FROM equipamiento ORDER BY id DESC ")
                     .executeAndFetchFirst(Equipamiento.class);
             if (aux==null){
-                return 0;
+                return 0L;
             }
             else{
                 return aux.getId();
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return 0;
+            return 0L;
         }
     }
 
@@ -38,7 +38,7 @@ public class EquipamientoRepositoryImp implements EquipamientoRepository {
     public String createEquipamiento(Equipamiento equipamiento){
         String create="INSERT INTO equipamiento(id,nombre,descripcion,id_voluntario)"+
                 "VALUES(:id,:nombre,:descripcion,:id_voluntario)";
-        int nuevoId=getIdEquipamientoMayor()+1;
+        Long nuevoId=getIdEquipamientoMayor()+1;
         try (Connection conn=sql2o.open()){
             conn.createQuery(create)
                     .addParameter("id",nuevoId)
@@ -65,7 +65,7 @@ public class EquipamientoRepositoryImp implements EquipamientoRepository {
     }
 
     @Override
-    public Equipamiento getEquipamientoById(int id){
+    public Equipamiento getEquipamientoById(Long id){
         String get="SELECT * FROM equipamiento WHERE id=:eid";
         try (Connection conn=sql2o.open()){
             return conn.createQuery(get)
@@ -78,7 +78,7 @@ public class EquipamientoRepositoryImp implements EquipamientoRepository {
     }
 
 
-    public String updateEquipamiento(int id,Equipamiento equipamiento){
+    public String updateEquipamiento(Long id,Equipamiento equipamiento){
         String update="UPDATE equipamiento "+
                 "SET nombre = :nombreEquipamiento, descripcion = :descripcionEquipamiento, id_voluntario = :voluntarioEquipamiento, updated_at=:fechaActualizacion "+
                 "WHERE id=:equipamientoId";
@@ -124,7 +124,7 @@ public class EquipamientoRepositoryImp implements EquipamientoRepository {
 
     }
 
-    public String deleteEquipamiento(int id){
+    public String deleteEquipamiento(Long id){
         String delete="DELETE FROM equipamiento e WHERE e.id="+id;
         try (Connection conn=sql2o.open()){
             Equipamiento equipamientoEliminar=conn.createQuery("SELECT * FROM equipamiento WHERE id =:eid")

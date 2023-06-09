@@ -22,7 +22,7 @@ public class HabilidadService {
     }
 
     @GetMapping("/{id}")
-    public Habilidad getHabilidadById(@PathVariable(value = "id") int id){
+    public Habilidad getHabilidadById(@PathVariable(value = "id") Long id){
         return habilidadRepository.getHabilidadById(id);
     }
 
@@ -46,7 +46,7 @@ public class HabilidadService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteHabilidadById(@PathVariable(value = "id") int id){
+    public void deleteHabilidadById(@PathVariable(value = "id") Long id){
         habilidadRepository.deleteHabilidadById(id);
     }
 }

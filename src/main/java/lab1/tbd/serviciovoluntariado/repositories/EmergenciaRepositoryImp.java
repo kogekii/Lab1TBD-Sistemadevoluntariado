@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 import java.util.List;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -24,13 +24,13 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
 
 
     @Override
-    public int getIdEmergenciaMayor(){
+    public Long getIdEmergenciaMayor(){
         try(Connection conn = sql2o.open()){
             Emergencia auxiliar = conn.createQuery("SELECT * FROM emergencia ORDER BY id DESC").executeAndFetchFirst(Emergencia.class);
             return auxiliar.getId();
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return 1;
+            return 1L;
         }
     }
 
@@ -41,7 +41,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
                 "INSERT INTO emergencia (id, nombre, ubicacion, fecha, descripcion,coordenadas) " +
                         "VALUES (:id, :nombre, :ubicacion, :fecha, :descripcion,ST_GeomFromText(:coordenadas,4326))";
 
-        int nuevoId = getIdEmergenciaMayor() + 1;
+        long nuevoId = getIdEmergenciaMayor() + 1;
 
         try (Connection conn = sql2o.open()) {
             conn.createQuery(sql)
@@ -75,7 +75,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     }
 
     @Override
-    public Emergencia getEmergenciaById(long id){
+    public Emergencia getEmergenciaById(Long id){
         String sql = "SELECT * FROM emergencia WHERE id = :eid";
 
         try(Connection conn = sql2o.open()){
@@ -89,7 +89,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     }
 
     @Override
-    public String updateEmergencia(long id, Emergencia emergencia) {
+    public String updateEmergencia(Long id, Emergencia emergencia) {
         String updateSql = "UPDATE emergencia " +
                 "SET nombre = :emergenciaNombre, ubicacion = :emergenciaUbicacion, " +
                 "fecha = :emergenciaFecha, descripcion = :emergenciaDescripcion, updated_at = :emergenciaFechaActualizacion, " +
@@ -115,7 +115,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
 
             //Se ejectua la actualizacion, llenando los parametros de la consulta segun corresponda
             Query consulta = con.createQuery(updateSql);
-            consulta.addParameter("emergenciaID", id);
+            ((Query) consulta).addParameter("emergenciaID", id);
 
             if(emergencia.getNombre() != null){
                 consulta.addParameter("emergenciaNombre", emergencia.getNombre());
@@ -160,7 +160,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     }
 
     @Override
-    public String deleteEmergencia(long id) {
+    public String deleteEmergencia(Long id) {
         String deleteSql = "DELETE FROM emergencia e WHERE e.id = "+id;
 
         try(Connection conn = sql2o.open()){

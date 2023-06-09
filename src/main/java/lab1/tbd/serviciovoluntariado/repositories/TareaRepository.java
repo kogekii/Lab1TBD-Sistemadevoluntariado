@@ -9,8 +9,8 @@ public interface TareaRepository {
 
     public Tarea createTarea(Tarea tarea); //Create
     public List<Tarea> getAllTareas(); //Read
-    public String updateTarea(long id, Tarea tarea); //Update
-    public String deleteTarea(long id);
-    public Tarea getTarea(long id);
-    public List<Tarea> getTareasByRegion(int gid);
+    public String updateTarea(Long id, Tarea tarea); //Update
+    public String deleteTarea(Long id);
+    public Tarea getTarea(Long id);
+    public List<Tarea> getTareasByRegion(Long gid);
 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Regiones {
     //Atributos
-    private int gid;
+    private Long gid;
     private String nom_reg;
     private String nom_prov ;
     private String cod_com;
@@ -17,11 +17,11 @@ public class Regiones {
     private String shape_area;
     private String geom;
 
-    public int getGid() {
+    public Long getGid() {
         return gid;
     }
 
-    public void setGid(int gid) {
+    public void setGid(Long gid) {
         this.gid = gid;
     }
 

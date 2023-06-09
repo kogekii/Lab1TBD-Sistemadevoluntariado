@@ -16,7 +16,7 @@ public class VolRankingRequerimientosRepositoryImp implements VolRankingRequerim
 
 
     @Override
-    public List<VolCantidadHabilidades> getVoluntariosRequerimiento(int id) {
+    public List<VolCantidadHabilidades> getVoluntariosRequerimiento(Long id) {
         final String sql =
                 "select v.id, v.nombre, v.apellido, v.estado_salud, t3.cantidad_habilidades from voluntario v, (select vh.id_voluntario, count(vh.id_habilidad) as cantidad_habilidades from vol_habilidad vh, (select id_habilidad from eme_habilidad eh,(select distinct th.id_eme_habilidad from tarea t, tarea_habilidad th " +
                         " where " +

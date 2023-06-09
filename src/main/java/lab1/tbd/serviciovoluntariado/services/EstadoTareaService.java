@@ -21,7 +21,7 @@ public class EstadoTareaService {
     }
 
     @GetMapping("/{id}")
-    public EstadoTarea getEstadoTareaById(@PathVariable(value = "id") int id){
+    public EstadoTarea getEstadoTareaById(@PathVariable(value = "id") Long id){
         return estadoTareaRepository.getEstadoTareaById(id);
     }
 
@@ -45,7 +45,7 @@ public class EstadoTareaService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEstadoTareaById(@PathVariable(value = "id") int id){
+    public void deleteEstadoTareaById(@PathVariable(value = "id") Long id){
         estadoTareaRepository.deleteEstadoTareaById(id);
     }
 }

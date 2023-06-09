@@ -21,7 +21,7 @@ public class VolParticipacionService {
     //Conseguir los voluntarios que se han realizado mas tareas de una emergencia
     @GetMapping("/voluntariesPerParticipation/{id}") //id de la emergencia
     @ResponseBody
-    public List<VolParticipacion> getVoluntariesPerParticipation(@PathVariable int id){
+    public List<VolParticipacion> getVoluntariesPerParticipation(@PathVariable Long id){
         return this.volParticipacionRepository.getVoluntariesPerParticipation(id);
     }
 }

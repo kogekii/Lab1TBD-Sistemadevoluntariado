@@ -47,7 +47,7 @@ public class VolHabilidadRepositoryImp implements VolHabilidadRepository{
     }
 
     @Override
-    public VolHabilidad getVolHabilidadById(int id) {
+    public VolHabilidad getVolHabilidadById(Long id) {
         String sql = "SELECT * FROM vol_habilidad WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
@@ -99,7 +99,7 @@ public class VolHabilidadRepositoryImp implements VolHabilidadRepository{
     }
 
     @Override
-    public void deleteVolHabilidadById(int id) {
+    public void deleteVolHabilidadById(Long id) {
         String sql = "DELETE FROM vol_habilidad WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {

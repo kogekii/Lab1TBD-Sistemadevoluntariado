@@ -2,7 +2,7 @@ package lab1.tbd.serviciovoluntariado.models;
 
 public class VolRanking {
 
-    private int id;
+    private Long id;
     private String estado_salud;
     private String nombre;
     private String apellido;
@@ -10,11 +10,11 @@ public class VolRanking {
     private int puntos;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

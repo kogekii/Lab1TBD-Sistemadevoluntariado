@@ -12,45 +12,52 @@ import java.util.List;
 @RequestMapping("/tarea")
 public class TareaService {
 
-    @Autowired
-    TareaRepository tareaRepository;
+    private final TareaRepository TareaRepository;
 
-    @GetMapping
-    public List<Tarea> getAllTarea(){
-        return tareaRepository.getAllTarea();
+    //Constructor
+    TareaService(TareaRepository tareaRepository){
+        this.TareaRepository = tareaRepository;
     }
 
-    @GetMapping("/{id}")
-    public Tarea getTareaById(@PathVariable(value = "id") int id){
-        return tareaRepository.getTareaById(id);
-    }
-
-    @GetMapping("/count")
-    public Integer countTarea(){
-        return tareaRepository.countTarea();
-    }
-
-    @GetMapping("/byemergencia/{id}")
-    public List<Tarea> getTareaByEmeId(@PathVariable(value = "id") int id){
-        return tareaRepository.getTareaByEmeId(id);
-    }
-
-    @PostMapping
+    //Create
+    @PostMapping("/createtarea")
     @ResponseBody
     public Tarea createTarea(@RequestBody Tarea tarea){
-        Tarea result = tareaRepository.createTarea(tarea);
-        return result;
+        return TareaRepository.createTarea(tarea);
     }
 
-    @PutMapping
+    //Read
+    @GetMapping("/tarea/get/{id}")
     @ResponseBody
-    public Tarea updateTarea(@RequestBody Tarea tarea){
-        Tarea result = tareaRepository.updateTarea(tarea);
-        return result;
+    public Tarea getTarea(@PathVariable Long id){
+        return TareaRepository.getTarea(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteTareaById(@PathVariable(value = "id") int id){
-        tareaRepository.deleteTareaById(id);
+    //Read all
+    @GetMapping("/tareas")
+    @ResponseBody
+    public List<Tarea> getAllTareas(){
+        return TareaRepository.getAllTareas();
+    }
+
+    //Update
+    @PutMapping("/tarea/update/{id}")
+    @ResponseBody
+    public String updateTarea(@PathVariable Long id, @RequestBody Tarea tarea){
+        return TareaRepository.updateTarea(id, tarea);
+    }
+
+    //Delete
+    @DeleteMapping("/tarea/delete/id={id}")
+    @ResponseBody
+    public String deleteTarea(@PathVariable Long id){
+        return TareaRepository.deleteTarea(id);
+    }
+
+    //Conseguir tareas por region
+    @GetMapping("/tareaByRegion/{id}")
+    @ResponseBody
+    public List<Tarea> getTareasByRegion(@PathVariable Long id){
+        return TareaRepository.getTareasByRegion(id);
     }
 }

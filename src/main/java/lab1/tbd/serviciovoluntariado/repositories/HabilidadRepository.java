@@ -7,9 +7,9 @@ import java.util.List;
 public interface HabilidadRepository {
     public int countHabilidad();
     public List<Habilidad> getAllHabilidad();
-    public Habilidad getHabilidadById(int id);
+    public Habilidad getHabilidadById(Long id);
     public Habilidad createHabilidad(Habilidad h);
     public Habilidad updateHabilidad(Habilidad h);
-    public void deleteHabilidadById(int id);
-    public List<Habilidad> getHabilidadByEmergency(int id);
+    public void deleteHabilidadById(Long id);
+    public List<Habilidad> getHabilidadByEmergency(Long id);
 }

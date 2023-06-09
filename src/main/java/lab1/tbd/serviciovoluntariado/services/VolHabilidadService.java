@@ -21,7 +21,7 @@ public class VolHabilidadService {
     }
 
     @GetMapping("/{id}")
-    public VolHabilidad getVolHabilidadById(@PathVariable(value = "id") int id){
+    public VolHabilidad getVolHabilidadById(@PathVariable(value = "id") Long id){
         return volHabilidadRepository.getVolHabilidadById(id);
     }
 
@@ -45,7 +45,7 @@ public class VolHabilidadService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteVolHabilidadById(@PathVariable(value = "id") int id){
+    public void deleteVolHabilidadById(@PathVariable(value = "id") Long id){
         volHabilidadRepository.deleteVolHabilidadById(id);
     }
 }

@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface RegionesRepository {
     public List<Regiones> getAllRegiones();
-    public List<Map<String, Object>> getRegionPoly(int id); //Consigue el poligono que la describe
+    public List<Map<String, Object>> getRegionPoly(Long id); //Consigue el poligono que la describe
 }

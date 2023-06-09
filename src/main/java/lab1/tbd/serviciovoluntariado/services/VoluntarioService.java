@@ -21,7 +21,7 @@ public class VoluntarioService {
     }
 
     @GetMapping("/{id}")
-    public Voluntario getVoluntarioById(@PathVariable(value = "id") int id){
+    public Voluntario getVoluntarioById(@PathVariable(value = "id") Long id){
         return voluntarioRepository.getVoluntarioById(id);
     }
 
@@ -45,7 +45,7 @@ public class VoluntarioService {
     }
 
     @DeleteMapping
-    public void deleteVoluntarioById(@PathVariable(value = "id") int id){
+    public void deleteVoluntarioById(@PathVariable(value = "id") Long id){
         voluntarioRepository.deleteVoluntarioById(id);
     }
 }

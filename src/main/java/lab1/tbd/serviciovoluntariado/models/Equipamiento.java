@@ -2,18 +2,18 @@ package lab1.tbd.serviciovoluntariado.models;
 import java.util.Date;
 
 public class Equipamiento {
-    private int id;
+    private Long id;
     private String nombre;
     private String descripcion;
-    private Integer id_voluntario;
+    private long id_voluntario;
     private Date created_at;
     private Date updated_at;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -33,11 +33,11 @@ public class Equipamiento {
         this.descripcion = descripcion;
     }
 
-    public Integer getId_voluntario() {
+    public Long getId_voluntario() {
         return id_voluntario;
     }
 
-    public void setId_voluntario(Integer id_voluntario) {
+    public void setId_voluntario(Long id_voluntario) {
         this.id_voluntario = id_voluntario;
     }
 

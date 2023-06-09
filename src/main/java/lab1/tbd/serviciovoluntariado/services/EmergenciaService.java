@@ -35,21 +35,21 @@ public class EmergenciaService {
     //Leer uno
     @GetMapping("/emergencies/{id}")
     @ResponseBody
-    public Emergencia getEmergenciaById(@PathVariable int id){
+    public Emergencia getEmergenciaById(@PathVariable Long id){
         return this.emergenciaRepository.getEmergenciaById(id);
     }
 
     //Update
     @PutMapping("/emergencies/update/{id}")
     @ResponseBody
-    public String updateEmergencia(@PathVariable int id, @RequestBody Emergencia emergencia){
+    public String updateEmergencia(@PathVariable Long id, @RequestBody Emergencia emergencia){
         return emergenciaRepository.updateEmergencia(id, emergencia);
     }
 
     //Delete
     @DeleteMapping("/emergencies/delete/{id}")
     @ResponseBody
-    public String deleteEmergencia(@PathVariable int id){
+    public String deleteEmergencia(@PathVariable Long id){
         return emergenciaRepository.deleteEmergencia(id);
     }
 }

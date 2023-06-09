@@ -47,7 +47,7 @@ public class InstitucionRepositoryImp implements InstitucionRepository{
     }
 
     @Override
-    public Institucion getInstitucionById(int id) {
+    public Institucion getInstitucionById(Long id) {
         String sql = "SELECT * FROM institucion WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {
@@ -98,7 +98,7 @@ public class InstitucionRepositoryImp implements InstitucionRepository{
     }
 
     @Override
-    public void deleteInstitucionById(int id) {
+    public void deleteInstitucionById(Long id) {
         String sql = "DELETE FROM institucion WHERE id = :id";
         Connection conn = sql2o.open();
         try (conn) {

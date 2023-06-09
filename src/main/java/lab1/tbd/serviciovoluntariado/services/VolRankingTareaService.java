@@ -19,7 +19,7 @@ public class VolRankingTareaService {
     //Conseguir el ranking de voluntarios para una cierta tarea
     @GetMapping("/voluntariesRankedPerTask/{id}") //id de la tarea
     @ResponseBody
-    public List<VolRanking> getVoluntariesRankedPerTask(@PathVariable int id){
+    public List<VolRanking> getVoluntariesRankedPerTask(@PathVariable Long id){
         return this.volRankingTareaRepository.getVoluntariesRankedPerTask(id);
     }
 }

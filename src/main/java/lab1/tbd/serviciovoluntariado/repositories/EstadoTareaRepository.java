@@ -8,9 +8,9 @@ public interface EstadoTareaRepository {
 
     public int countEstadoTarea();
     public List<EstadoTarea> getAllEstadoTarea();
-    public EstadoTarea getEstadoTareaById(int id);
+    public EstadoTarea getEstadoTareaById(Long id);
     public EstadoTarea createEstadoTarea(EstadoTarea s);
     public EstadoTarea updateEstadoTarea(EstadoTarea s);
-    public void deleteEstadoTareaById(int id);
+    public void deleteEstadoTareaById(Long id);
 
 }

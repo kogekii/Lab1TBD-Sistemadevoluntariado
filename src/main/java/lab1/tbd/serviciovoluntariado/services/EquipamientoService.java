@@ -28,19 +28,19 @@ public class EquipamientoService {
 
     @GetMapping("/equipments/{id}")
     @ResponseBody
-    public Equipamiento getEquipamientoById(@PathVariable int id){
+    public Equipamiento getEquipamientoById(@PathVariable Long id){
         return equipamientoRepository.getEquipamientoById(id);
     }
 
     @PutMapping("/equipments/update/{id}")
     @ResponseBody
-    public String updateEquipamiento(@PathVariable int id, @RequestBody Equipamiento equipamiento){
+    public String updateEquipamiento(@PathVariable Long id, @RequestBody Equipamiento equipamiento){
         return equipamientoRepository.updateEquipamiento(id,equipamiento);
     }
 
     @DeleteMapping("/equipments/delete/id={id}")
     @ResponseBody
-    public String deleteEquipamiento(@PathVariable int id){
+    public String deleteEquipamiento(@PathVariable Long id){
         return equipamientoRepository.deleteEquipamiento(id);
     }
 

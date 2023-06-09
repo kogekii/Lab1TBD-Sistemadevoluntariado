@@ -1,7 +1,5 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
-import lab1.tbd.serviciovoluntariado.models.Institucion;
-import lab1.tbd.serviciovoluntariado.models.Emergencia;
 import lab1.tbd.serviciovoluntariado.models.Coordinador;
 
 import java.sql.Timestamp;
@@ -23,13 +21,13 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
 
 
     @Override
-    public int getIdCoordinadorMayor(){
+    public Long getIdCoordinadorMayor(){
         try(Connection conn = sql2o.open()){
             Coordinador auxiliar = conn.createQuery("SELECT * FROM coordinador ORDER BY id DESC").executeAndFetchFirst(Coordinador.class);
             return auxiliar.getId();
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return 1;
+            return 1L;
         }
     }
     @Override
@@ -38,7 +36,7 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
                 "INSERT INTO coordinador (id,nombre, apellido,estado_salud, password,correo_electronico,id_institucion) " +
                         "VALUES (:id, :nombre, :apellido, :estado_salud, :password,:correo_electronico,:id_institucion)";
 
-        int nuevoId = getIdCoordinadorMayor() + 1;
+        Long nuevoId = getIdCoordinadorMayor() + 1;
 
         try(Connection conn = sql2o.open()){
             conn.createQuery(sql)
@@ -73,7 +71,7 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
     }
 
     @Override
-    public Coordinador getCoordinadorById(Integer id){
+    public Coordinador getCoordinadorById(Long id){
         String sql = "SELECT * FROM coordinador WHERE id = :eid";
 
         try(Connection conn = sql2o.open()){
@@ -87,7 +85,7 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
     }
 
     @Override
-    public String updateCoordinador(int id, Coordinador coordinador) {
+    public String updateCoordinador(Long id, Coordinador coordinador) {
         String updateSql = "UPDATE coordinador " +
                 "SET nombre = :coordinadorNombre,apellido = :coordinadorApellido, estado_salud = :coordinadorEstado_salud,"
                 + "password =:coordinadorPassword, correo_electronico =:coordinadorCorreo_electronico, id_institucion =:coordinadorId_institucion, "
@@ -154,7 +152,7 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
     }
 
     @Override
-    public String deleteCoordinador(int id) {
+    public String deleteCoordinador(Long id) {
         String deleteSql = "DELETE FROM coordinador e WHERE e.id = "+id;
 
         try(Connection conn = sql2o.open()){

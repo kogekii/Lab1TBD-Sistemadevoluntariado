@@ -21,7 +21,7 @@ public class EmeHabilidadService {
     }
 
     @GetMapping("/{id}")
-    public EmeHabilidad getEmeHabilidadById(@PathVariable int id){
+    public EmeHabilidad getEmeHabilidadById(@PathVariable Long id){
         return emeHabilidadRepository.getEmeHabilidadById((long)id);
     }
 
@@ -45,7 +45,7 @@ public class EmeHabilidadService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmeHabilidad(@PathVariable int id){
+    public void deleteEmeHabilidad(@PathVariable Long id){
         emeHabilidadRepository.deleteEmeHabilidadById((long)id);
     }
 }

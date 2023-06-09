@@ -21,7 +21,7 @@ public class TareaHabilidadService {
     public List<TareaHabilidad> getAllTareaHabilidad(){ return tareaHabilidadRepository.getAllTareaHabilidad();}
 
     @GetMapping("/{id}")
-    public TareaHabilidad getTareaHabilidadById(@PathVariable int id){
+    public TareaHabilidad getTareaHabilidadById(@PathVariable Long id){
         return tareaHabilidadRepository.getTareaHabilidadById((long) id);
     }
 
@@ -45,7 +45,7 @@ public class TareaHabilidadService {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTareaHabilidad(@PathVariable int id){
+    public void deleteTareaHabilidad(@PathVariable Long id){
         tareaHabilidadRepository.deleteTareaHabilidadById((long) id);
     }
 

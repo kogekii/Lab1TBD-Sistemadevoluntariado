@@ -3,7 +3,7 @@ package lab1.tbd.serviciovoluntariado.models;
 import java.util.Date;
 
 public class Coordinador {
-    private int id;
+    private Long id;
     private String nombre;
     private String apellido;
     private String estado_salud;
@@ -23,12 +23,12 @@ public class Coordinador {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

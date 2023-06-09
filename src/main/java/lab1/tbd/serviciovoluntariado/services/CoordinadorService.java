@@ -42,21 +42,21 @@ public class CoordinadorService {
     //Leer uno
     @GetMapping("/coordinador/{id}")
     @ResponseBody
-    public Coordinador getCoordinadorById(@PathVariable int id){
+    public Coordinador getCoordinadorById(@PathVariable Long id){
         return this.coordinadorRepository.getCoordinadorById(id);
     }
 
     //Update
     @PutMapping("/coodinador/update/{id}")
     @ResponseBody
-    public String updateCoordinador(@PathVariable int id, @RequestBody Coordinador coordinador){
+    public String updateCoordinador(@PathVariable Long id, @RequestBody Coordinador coordinador){
         return coordinadorRepository.updateCoordinador(id, coordinador);
     }
 
     //Delete
     @DeleteMapping("/coodinador/delete/id={id}")
     @ResponseBody
-    public String deleteCoordinador(@PathVariable int id){
+    public String deleteCoordinador(@PathVariable Long id){
         return coordinadorRepository.deleteCoordinador(id);
     }
 }

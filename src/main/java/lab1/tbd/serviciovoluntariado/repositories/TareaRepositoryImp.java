@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class TareaRepositoryImp implements TareaRepository{
 
 
         try(Connection conn = sql2o.open()){
-            int idNuevo = getIdMayor()+ 1;
+            Long idNuevo = getIdMayor()+ 1;
             conn.createQuery(sql, true)
                     .addParameter("id", idNuevo)
                     .addParameter("nombre", tarea.getNombre())
@@ -59,7 +62,7 @@ public class TareaRepositoryImp implements TareaRepository{
     }
 
     @Override
-    public String updateTarea(long id, Tarea tarea) {
+    public String updateTarea(Long id, Tarea tarea) {
         String updateSql = "UPDATE tarea " +
                 "SET nombre = :tareaNombre, descripcion = :tareaDescripcion,  " +
                 "id_estado_tarea = :tareaid_estado_tarea, id_emergencia = :tareaid_emergencia, coordenadas = ST_GeomFromText(:coordenadas,4326), updated_at = :tareaNuevaFecha " +
@@ -118,7 +121,7 @@ public class TareaRepositoryImp implements TareaRepository{
     }
 
     @Override
-    public String deleteTarea(long id) {
+    public String deleteTarea(Long id) {
         String deleteSql = "DELETE FROM tarea e WHERE e.id = "+id;
         try(Connection conn = sql2o.open()){
             conn.createQuery(deleteSql)
@@ -130,7 +133,7 @@ public class TareaRepositoryImp implements TareaRepository{
         }
     }
     @Override
-    public Tarea getTarea(long id) {
+    public Tarea getTarea(Long id) {
         final String sql =
                 "SELECT * FROM tarea e WHERE e.id = "+id;
         try(Connection conn = sql2o.open()){
@@ -142,19 +145,19 @@ public class TareaRepositoryImp implements TareaRepository{
             return null;
         }
     }
-    public int getIdMayor(){
+    public Long getIdMayor(){
         try(Connection conn = sql2o.open()){
-            int aux = conn.createQuery("SELECT id FROM tarea ORDER BY id DESC")
+            Long aux = conn.createQuery("SELECT id FROM tarea ORDER BY id DESC")
                     .executeAndFetchFirst(Tarea.class).
                     getId();
             return aux;
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return 0;
+            return 0L;
         }
     }
 
-    public List<Tarea> getTareasByRegion(long gid){
+    public List<Tarea> getTareasByRegion(Long gid){
         final String sql =
                 "SELECT id,nombre,descripcion,id_estado_tarea,id_emergencia, st_x(st_astext(coordenadas)) AS longitude, st_y(st_astext(coordenadas)) AS latitude FROM division_regional dr , tarea t where " +
                         "ST_CONTAINS(dr.geom,ST_FlipCoordinates(t.coordenadas)) and dr.gid = :tid";
