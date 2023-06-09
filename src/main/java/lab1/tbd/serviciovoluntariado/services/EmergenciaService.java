@@ -2,7 +2,6 @@ package lab1.tbd.serviciovoluntariado.services;
 
 import lab1.tbd.serviciovoluntariado.models.Emergencia;
 import lab1.tbd.serviciovoluntariado.repositories.EmergenciaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

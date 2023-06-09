@@ -1,7 +1,5 @@
 package lab1.tbd.serviciovoluntariado.models;
 
-import java.util.Date;
-
 public class Regiones {
     //Atributos
     private Long gid;

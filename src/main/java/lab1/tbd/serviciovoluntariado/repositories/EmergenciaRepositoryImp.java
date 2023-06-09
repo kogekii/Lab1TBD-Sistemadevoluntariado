@@ -24,7 +24,11 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
 
 
     @Override
+<<<<<<< HEAD
     public Long getIdEmergenciaMayor(){
+=======
+    public long getIdEmergenciaMayor(){
+>>>>>>> 63eca21ce59e1b3ac45814616865b27577d9e15f
         try(Connection conn = sql2o.open()){
             Emergencia auxiliar = conn.createQuery("SELECT * FROM emergencia ORDER BY id DESC").executeAndFetchFirst(Emergencia.class);
             return auxiliar.getId();
@@ -38,8 +42,8 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
     @Override
     public String createEmergencia(Emergencia emergencia) {
         String sql =
-                "INSERT INTO emergencia (id, nombre, ubicacion, fecha, descripcion,coordenadas) " +
-                        "VALUES (:id, :nombre, :ubicacion, :fecha, :descripcion,ST_GeomFromText(:coordenadas,4326))";
+            "INSERT INTO emergencia (id, nombre, ubicacion, fecha, descripcion,coordenadas) " +
+            "VALUES (:id, :nombre, :ubicacion, :fecha, :descripcion,ST_GeomFromText(:coordenadas,4326))";
 
         long nuevoId = getIdEmergenciaMayor() + 1;
 
@@ -74,8 +78,12 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
         }
     }
 
+<<<<<<< HEAD
     @Override
     public Emergencia getEmergenciaById(Long id){
+=======
+    public Emergencia getEmergenciaById(long id){
+>>>>>>> 63eca21ce59e1b3ac45814616865b27577d9e15f
         String sql = "SELECT * FROM emergencia WHERE id = :eid";
 
         try(Connection conn = sql2o.open()){
@@ -88,8 +96,12 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
         }
     }
 
+<<<<<<< HEAD
     @Override
     public String updateEmergencia(Long id, Emergencia emergencia) {
+=======
+    public String updateEmergencia(long id, Emergencia emergencia) {
+>>>>>>> 63eca21ce59e1b3ac45814616865b27577d9e15f
         String updateSql = "UPDATE emergencia " +
                 "SET nombre = :emergenciaNombre, ubicacion = :emergenciaUbicacion, " +
                 "fecha = :emergenciaFecha, descripcion = :emergenciaDescripcion, updated_at = :emergenciaFechaActualizacion, " +
@@ -159,8 +171,12 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
         }
     }
 
+<<<<<<< HEAD
     @Override
     public String deleteEmergencia(Long id) {
+=======
+    public String deleteEmergencia(long id) {
+>>>>>>> 63eca21ce59e1b3ac45814616865b27577d9e15f
         String deleteSql = "DELETE FROM emergencia e WHERE e.id = "+id;
 
         try(Connection conn = sql2o.open()){
@@ -179,6 +195,27 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository{
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+
+    @Override
+    public String updateEmergencia(int id, Emergencia emergencia) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateEmergencia'");
+    }
+
+
+    @Override
+    public String deleteEmergencia(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteEmergencia'");
+    }
+
+
+    @Override
+    public Emergencia getEmergenciaById(Integer id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEmergenciaById'");
     }
 
 

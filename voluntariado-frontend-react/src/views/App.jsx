@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes, BrowserRouter } from 'react-router-dom';
 import './App.scss';
 
-import SupervisorLoginView from './Supervisor/Home/Login';
+import SupervisorRouter from './Supervisor/Router';
 import VoluntarioRouter from './Voluntario/Router';
 import { SessionProvider } from '../services/Session/Session';
 // import EmergencyPage from './pages/EmergencyPage';
@@ -15,7 +15,7 @@ function App() {
 			<Routes>
 				<Route index path="/" element={<Navigate to="/v/login" replace={true} />} />
 				<Route path="/v/*" element={<VoluntarioRouter />} />
-				<Route path="/s/*" element={<SupervisorLoginView />} />
+				<Route path="/s/*" element={<SupervisorRouter />} />
 			</Routes>
 		</SessionProvider>
 		</BrowserRouter>
