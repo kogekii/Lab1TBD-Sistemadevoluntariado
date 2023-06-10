@@ -1,32 +1,35 @@
 package lab1.tbd.serviciovoluntariado.models;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 
 // @EntityScan
 @Entity
 public class Voluntario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="voluntario_generator", sequenceName="voluntario_id_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="voluntario_generator")
     private Long id;
     private String nombre;
-    private String email;
+    private String apellido;
+    private String correoElectronico;
     private String password;
 
-    public Voluntario(Long id, String nombre, String email, String password) {
+    public Voluntario(Long id, String nombre, String apellido, String correoElectronico, String password) {
         this.id = id;
         this.nombre = nombre;
-        this.email = email;
+        this.apellido = apellido;
+        this.correoElectronico = correoElectronico;
         this.password = password;
     }
     
-    public Voluntario(String nombre, String email, String password) {
+    public Voluntario(String nombre, String apellido, String correoElectronico, String password) {
         this.nombre = nombre;
-        this.email = email;
+        this.apellido = apellido;
+        this.correoElectronico = correoElectronico;
         this.password = password;
     }
 
@@ -49,12 +52,20 @@ public class Voluntario {
         this.nombre = nombre;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getApellido() {
+        return apellido;
     }
 
-    public String getEmail(){
-        return email;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getCorreoElectronico(){
+        return correoElectronico;
     }
 
     public void setPassword(String password) {

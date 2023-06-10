@@ -1,11 +1,11 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Voluntario;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public interface VoluntarioRepository extends JpaRepository<Voluntario, Integer>{
     // public int countVoluntario();
@@ -14,5 +14,5 @@ public interface VoluntarioRepository extends JpaRepository<Voluntario, Integer>
     // public Voluntario createVoluntario(Voluntario v);
     // public Voluntario updateVoluntario(Voluntario v);
     // public void deleteVoluntarioById(Long id);
-    public Optional<Voluntario> findOneByEmail(String email);
+    public Optional<Voluntario> findOneByCorreoElectronico(String email);
 }

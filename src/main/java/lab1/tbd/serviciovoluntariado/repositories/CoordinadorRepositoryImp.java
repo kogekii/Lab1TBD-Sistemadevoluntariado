@@ -14,11 +14,10 @@ import org.sql2o.Sql2o;
 
 @Repository
 
-public class CoordinadorRepositoryImp implements CoordinadorRepository  {
-
+public class CoordinadorRepositoryImp implements CoordinadorRepository
+{
     @Autowired
     private Sql2o sql2o;
-
 
     @Override
     public Long getIdCoordinadorMayor(){
@@ -30,11 +29,12 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
             return 1L;
         }
     }
+
     @Override
     public String createCoordinador(Coordinador coordinador) {
         final String sql =
-                "INSERT INTO coordinador (id,nombre, apellido,estado_salud, password,correo_electronico,id_institucion) " +
-                        "VALUES (:id, :nombre, :apellido, :estado_salud, :password,:correo_electronico,:id_institucion)";
+            "INSERT INTO coordinador (id,nombre, apellido,estado_salud, password,correo_electronico,id_institucion) " +
+            "VALUES (:id, :nombre, :apellido, :estado_salud, :password,:correo_electronico,:id_institucion)";
 
         Long nuevoId = getIdCoordinadorMayor() + 1;
 
@@ -59,8 +59,7 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
 
     @Override
     public List<Coordinador> getAllCoordinador() {
-        final String sql =
-                "SELECT * FROM coordinador";
+        final String sql = "SELECT * FROM coordinador";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                     .executeAndFetch(Coordinador.class);
@@ -171,6 +170,14 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository  {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    @Override
+    public Coordinador findOneByEmail(String email) {
+        String sql = "SELECT * FROM coordinador WHERE correo_electronico = :email";
+        Connection conn = sql2o.open();
+        return conn.createQuery(sql)
+            .addParameter("email", email)
+            .executeAndFetchFirst(Coordinador.class);
     }
 
 
