@@ -30,7 +30,7 @@ public class WebSecurityConfig{
         return http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/usuario/register/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/voluntario/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()

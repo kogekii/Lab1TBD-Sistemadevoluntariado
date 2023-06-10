@@ -7,12 +7,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lab1.tbd.serviciovoluntariado.models.Usuario;
+import lab1.tbd.serviciovoluntariado.models.Voluntario;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails{
 
-    private final Usuario usuario;
+    // private final Usuario usuario;
+    private final Voluntario voluntario;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -21,12 +24,14 @@ public class UserDetailsImpl implements UserDetails{
 
     @Override
     public String getPassword() {
-        return usuario.getPassword();
+        // return usuario.getPassword();
+        return voluntario.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return usuario.getEmail();
+        // return usuario.getEmail();
+        return voluntario.getEmail();
     }
 
     @Override
@@ -50,7 +55,8 @@ public class UserDetailsImpl implements UserDetails{
     }
 
     public String getNombre() {
-        return usuario.getName();
+        // return usuario.getName();'
+        return voluntario.getNombre();
     }
 
     
