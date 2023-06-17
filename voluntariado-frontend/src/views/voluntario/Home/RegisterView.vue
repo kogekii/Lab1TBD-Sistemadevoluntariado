@@ -103,10 +103,13 @@ export default {
 	justify-content: center;
 	gap: 4px;
 	grid-auto-flow: column;
+  background: radial-gradient(red, blue);
 
 	.card {
 		min-width: 400px;
 		max-width: 500px;
 	}
+
+
 }
 </style>
