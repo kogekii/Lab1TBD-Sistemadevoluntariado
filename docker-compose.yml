@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  postgres:
+    image: postgis/postgis:12-3.3-alpine
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: voluntariado
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 207855472
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+      - ./ScriptsBD:/scripts
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+        PGADMIN_DEFAULT_EMAIL: admin@local.dev
+        PGADMIN_DEFAULT_PASSWORD: postgres
+        PGADMIN_LISTEN_PORT: 80
+    ports:
+        - 15432:80
+    volumes:
+        - ./pgadmin:/var/lib/pgadmin
+    depends_on:
+        - postgres

@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+pgadmin/
+postgresql/
+pg_data/

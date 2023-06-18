@@ -1,7 +1,7 @@
 package lab1.tbd.serviciovoluntariado.services;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
-import lab1.tbd.serviciovoluntariado.models.Voluntario;
+import lab1.tbd.serviciovoluntariado.models.VoluntarioCercano;
 import lab1.tbd.serviciovoluntariado.repositories.TareaRepository;
 
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +73,7 @@ public class TareaService {
     // Special query
     @GetMapping("/{id}/voluntarios")
     @ResponseBody
-    public List<Voluntario> getClosestVoluntarios(@PathVariable Long id, @RequestParam Map<String,String> searchParams){
+    public List<VoluntarioCercano> getClosestVoluntarios(@PathVariable Long id, @RequestParam Map<String,String> searchParams){
         Long limit;
         if(searchParams.containsKey("limit")){
             try {

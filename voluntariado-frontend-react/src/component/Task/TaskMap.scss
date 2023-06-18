@@ -3,3 +3,19 @@
     height: 500px;
     max-height: 80vh;
 }
+
+.task-map-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: var(--bs-card-cap-padding-y);
+
+    .input-group {
+        display: inline-block;
+        width: auto;
+
+        input {
+            width: 75px;
+        }
+    }
+}

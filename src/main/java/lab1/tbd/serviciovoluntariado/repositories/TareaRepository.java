@@ -2,7 +2,7 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
-import lab1.tbd.serviciovoluntariado.models.Voluntario;
+import lab1.tbd.serviciovoluntariado.models.VoluntarioCercano;
 
 import java.util.List;
 
@@ -15,5 +15,5 @@ public interface TareaRepository
     public Tarea getTarea(Long id);
     public List<Tarea> getTareasByRegion(Long gid);
     public List<Tarea> getTareasByEmergencia(Long eid);
-    public List<Voluntario> getClosestVoluntarios(Long tid, Long limit);
+    public List<VoluntarioCercano> getClosestVoluntarios(Long tid, Long limit);
 }

@@ -2,7 +2,7 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
-import lab1.tbd.serviciovoluntariado.models.Voluntario;
+import lab1.tbd.serviciovoluntariado.models.VoluntarioCercano;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -189,18 +189,20 @@ public class TareaRepositoryImp implements TareaRepository
     }
 
     @Override
-    public List<Voluntario> getClosestVoluntarios(Long tid, Long limit) {
+    public List<VoluntarioCercano> getClosestVoluntarios(Long tid, Long limit) {
         String sql =
-            "SELECT voluntario.* "+
+            "SELECT v.id AS id, v.nombre AS nombre, v.apellido AS apellido, v.correo_electronico as correoElectronico, "+
+                "ST_X(ST_FlipCoordinates(v.coordenadas)) AS longitude,"+
+                "ST_Y(ST_FlipCoordinates(v.coordenadas)) AS latitude "+
             "FROM tarea t, voluntario v "+
             "WHERE t.id = :id "+
-            "ORDER BY ST_Distance(ST_FlipCoordinates(t.coordenadas), ST_FlipCoordinates(v.coordenadas)) DESC "+
+            "ORDER BY ST_Distance(ST_Transform(t.coordenadas,4326), ST_Transform(v.coordenadas,4326)) ASC "+
             "LIMIT :limit";
         Connection session = sql2o.open();
-        List<Voluntario> result = session.createQuery(sql)
+        List<VoluntarioCercano> result = session.createQuery(sql)
             .addParameter("id", tid)
             .addParameter("limit", limit)
-            .executeAndFetch(Voluntario.class);
+            .executeAndFetch(VoluntarioCercano.class);
         session.close();
         return result;
     }
