@@ -34,8 +34,8 @@ const formikValidator = values => {
 	return errors;
 };
 
-function SupervisorLoginView(){
-	useTitle('Supervisor - Iniciar Sesión');
+function CoordinadorLoginView(){
+	useTitle('Coordinador - Iniciar Sesión');
 	const [loading, setLoading] = useState(false);
 	const session = useSession();
 	const formik = useFormik({
@@ -63,7 +63,7 @@ function SupervisorLoginView(){
 				<Form noValidate onSubmit={formik.handleSubmit}>
 					<Card.Body>
 						<Card.Title>
-                            Iniciar Sesión <Badge>Supervisores</Badge>
+                            Iniciar Sesión <Badge>Coordinadores</Badge>
                         </Card.Title>
 						<Form.Group className="mb-2" controlId="formBasicEmail">
 							<Form.Label>Correo Electrónico</Form.Label>
@@ -122,4 +122,4 @@ function SupervisorLoginView(){
 	);
 };
 
-export default SupervisorLoginView;
+export default CoordinadorLoginView;

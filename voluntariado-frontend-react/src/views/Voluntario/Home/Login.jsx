@@ -111,7 +111,7 @@ export default function VoluntarioLoginView(){
 					</Card.Body>
 					<Card.Footer className="card-action-footer">
 						<Button variant="outline-primary" className="me-auto" as={Link} to="/s/login">
-							<FontAwesomeIcon icon={faUser} /> Supervisores
+							<FontAwesomeIcon icon={faUser} /> Coordinadores
 						</Button>
 						<Button variant="outline-primary" as={Link} to="/v/register">Ir a Registrar</Button>
 						<Button variant="primary" type="submit" disabled={loading}>{loading ? 'Loading…' : 'Ingresar'}</Button>

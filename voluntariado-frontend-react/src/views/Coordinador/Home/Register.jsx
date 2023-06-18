@@ -40,8 +40,8 @@ const formikValidator = values => {
 	return errors;
 };
 
-function SupervisorRegisterView(){
-	useTitle('Supervisor - Registrar Usuario');
+function CoordinadorRegisterView(){
+	useTitle('Coordinador - Registrar Usuario');
     const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const formik = useFormik({
@@ -73,7 +73,7 @@ function SupervisorRegisterView(){
 				<Form noValidate onSubmit={formik.handleSubmit}>
 					<Card.Body>
 						<Card.Title>
-                            Registrar Usuario <Badge>Supervisores</Badge>
+                            Registrar Usuario <Badge>Coordinadores</Badge>
                         </Card.Title>
 						<Form.Group className="mb-2" controlId="formBasicName">
 							<Form.Label>Nombre</Form.Label>
@@ -147,4 +147,4 @@ function SupervisorRegisterView(){
 	);
 };
 
-export default SupervisorRegisterView;
+export default CoordinadorRegisterView;
