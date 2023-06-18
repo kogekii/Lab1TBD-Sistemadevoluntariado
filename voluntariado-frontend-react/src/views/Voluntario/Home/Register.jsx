@@ -54,16 +54,19 @@ function VoluntarioRegisterView(){
 				apellido: values.apellido,
 				email: values.email,
 				password: values.password,
-			}).catch(err => {
+			})
+			.then((res) => {
+				setSubmitting(false);
+				if(res?.data?.error){
+					setFieldError("backend", (res.data.message) ? res.data.message : res.data.error);
+				}
+				else navigate('/v/login');
+			})
+			.catch(err => {
 				setSubmitting(false);
 				setFieldError("backend", err.message);
 				console.error(err);
 			})
-			.then((res) => {
-				setSubmitting(false);
-				if(res.data.error) setFieldError("backend", res.data.message);
-				else navigate('/v/login');
-			});
 		},
 	});
 

@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { useFormik } from 'formik';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -12,7 +11,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import useTitle from '../../../hooks/title';
 
 const FORMIK_INIT_VALUES = {
-	name: '',
+	nombre: '',
+	apellido: '',
 	email: '',
 	password: '',
 	password2: '',
@@ -43,27 +43,30 @@ const formikValidator = values => {
 function CoordinadorRegisterView(){
 	useTitle('Coordinador - Registrar Usuario');
     const navigate = useNavigate();
-	const [loading, setLoading] = useState(false);
 	const formik = useFormik({
 		initialValues: FORMIK_INIT_VALUES,
 		validateOnBlur: true,
 		validateOnChange: false,
 		validate: formikValidator,
 		onSubmit: (values, { setSubmitting, setFieldError }) => {
-			setLoading(true);
-			axios.post('/api/usuario/register', {
-                name: values.name,
+			axios.post('/api/coordinador/register', {
+                nombre: values.nombre,
+				apellido: values.apellido,
                 email: values.email,
                 password: values.password,
-            }).catch(err => {
-				if(err instanceof AxiosError){
-					if(err.response.status === 401) setFieldError("backend", "Las credenciales son inválidas!");
-					else setFieldError("backend", "No se pudo iniciar sesión!");
-				}
-				else setFieldError("backend", "Ocurrió un error inesperado!");
+            })
+			.then((res) => {
 				setSubmitting(false);
+				if(res?.data?.error){
+					setFieldError("backend", (res.data.message) ? res.data.message : res.data.error);
+				}
+				else navigate('/s/login');
 			})
-			.finally(() => navigate('/s/login'));
+			.catch(err => {
+				setSubmitting(false);
+				setFieldError("backend", err.message);
+				console.error(err);
+			});
 		},
 	});
 
@@ -75,19 +78,33 @@ function CoordinadorRegisterView(){
 						<Card.Title>
                             Registrar Usuario <Badge>Coordinadores</Badge>
                         </Card.Title>
-						<Form.Group className="mb-2" controlId="formBasicName">
+						<Form.Group className="mb-2" controlId="formBasicNombre">
 							<Form.Label>Nombre</Form.Label>
 							<Form.Control
 								type="text"
-								placeholder="Nombre Apellido"
-								name="name"
+								placeholder="Ej: John"
+								name="nombre"
 								onChange={formik.handleChange}
 								onBlur={formik.handleBlur}
-								isInvalid={formik.touched.name && !!formik.errors?.name}
-								value={formik.values.name}
-								disabled={loading}
+								isInvalid={formik.touched.nombre && !!formik.errors?.nombre}
+								value={formik.values.nombre}
+								disabled={formik.isSubmitting}
 							/>
-							<Form.Control.Feedback type="invalid">{formik.errors?.name}</Form.Control.Feedback>
+							<Form.Control.Feedback type="invalid">{formik.errors?.nombre}</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group className="mb-2" controlId="formBasicApellido">
+							<Form.Label>Apellido</Form.Label>
+							<Form.Control
+								type="text"
+								placeholder="Ej: Wick"
+								name="apellido"
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								isInvalid={formik.touched.apellido && !!formik.errors?.apellido}
+								value={formik.values.apellido}
+								disabled={formik.isSubmitting}
+							/>
+							<Form.Control.Feedback type="invalid">{formik.errors?.apellido}</Form.Control.Feedback>
 						</Form.Group>
 						<Form.Group className="mb-2" controlId="formBasicEmail">
 							<Form.Label>Correo Electrónico</Form.Label>
@@ -99,7 +116,7 @@ function CoordinadorRegisterView(){
 								onBlur={formik.handleBlur}
 								isInvalid={formik.touched.email && !!formik.errors?.email}
 								value={formik.values.email}
-								disabled={loading}
+								disabled={formik.isSubmitting}
 							/>
 							<Form.Control.Feedback type="invalid">{formik.errors?.email}</Form.Control.Feedback>
 						</Form.Group>
@@ -113,7 +130,7 @@ function CoordinadorRegisterView(){
 								onBlur={formik.handleBlur}
 								isInvalid={formik.touched.password && !!formik.errors?.password}
 								value={formik.values.password}
-								disabled={loading}
+								disabled={formik.isSubmitting}
 							/>
 							<Form.Control.Feedback type="invalid">{formik.errors?.password}</Form.Control.Feedback>
 						</Form.Group>
@@ -127,7 +144,7 @@ function CoordinadorRegisterView(){
 								onBlur={formik.handleBlur}
 								isInvalid={formik.touched.password2 && !!formik.errors?.password2}
 								value={formik.values.password2}
-								disabled={loading}
+								disabled={formik.isSubmitting}
 							/>
 							<Form.Control.Feedback type="invalid">{formik.errors?.password2}</Form.Control.Feedback>
 						</Form.Group>
@@ -139,7 +156,7 @@ function CoordinadorRegisterView(){
 						<Button variant="outline-primary" className="me-auto" as={Link} to="/s/login">
                             <FontAwesomeIcon icon={faArrowLeft} /> Volver
                         </Button>
-						<Button variant="primary" type="submit" disabled={loading}>{loading ? 'Loading…' : 'Ingresar'}</Button>
+						<Button variant="primary" type="submit" disabled={formik.isSubmitting}>{formik.isSubmitting ? 'Loading…' : 'Ingresar'}</Button>
 					</Card.Footer>
 				</Form>
 			</Card>

@@ -5,7 +5,7 @@ import java.util.List;
 import lab1.tbd.serviciovoluntariado.models.Coordinador;
 
 public interface CoordinadorRepository {
-    public String createCoordinador(Coordinador coordinador); //Create
+    public Coordinador createCoordinador(Coordinador coordinador); //Create
     public List<Coordinador> getAllCoordinador(); //Read
     public Coordinador getCoordinadorById(Long id);
     public Coordinador findOneByEmail(String email);

@@ -31,26 +31,28 @@ public class CoordinadorRepositoryImp implements CoordinadorRepository
     }
 
     @Override
-    public String createCoordinador(Coordinador coordinador) {
+    public Coordinador createCoordinador(Coordinador coordinador) {
         final String sql =
-            "INSERT INTO coordinador (id,nombre, apellido,estado_salud, password,correo_electronico,id_institucion) " +
-            "VALUES (:id, :nombre, :apellido, :estado_salud, :password,:correo_electronico,:id_institucion)";
-
-        Long nuevoId = getIdCoordinadorMayor() + 1;
+            "INSERT INTO coordinador (nombre, apellido,estado_salud,password,correo_electronico,id_institucion) " +
+            "VALUES (:nombre, :apellido, :estado_salud, :password, :correo_electronico, :id_institucion)";
 
         try(Connection conn = sql2o.open()){
-            conn.createQuery(sql)
-                    .addParameter("id", nuevoId)
-                    .addParameter("nombre", coordinador.getNombre())
-                    .addParameter("apellido", coordinador.getApellido())
-                    .addParameter("estado_salud", coordinador.getEstado_salud())
-                    .addParameter("password", coordinador.getPassword())
-                    .addParameter("correo_electronico",coordinador.getCorreo_electronico())
-                    .addParameter("id_institucion",coordinador.getId_institucion())
-                    .executeUpdate();
-            return "Se ha creado el coordinador con id: " + nuevoId;
-
-        }catch(Exception e){
+            Query query = conn.createQuery(sql)
+                .addParameter("nombre", coordinador.getNombre())
+                .addParameter("apellido", coordinador.getApellido())
+                .addParameter("estado_salud", coordinador.getEstado_salud())
+                .addParameter("password", coordinador.getPassword())
+                .addParameter("correo_electronico",coordinador.getCorreo_electronico())
+                .addParameter("id_institucion",coordinador.getId_institucion());
+            Long cid = query.executeUpdate().getKey(Coordinador.class);
+            System.out.println("REGISTER Coordinador(id=" + cid + ")");
+            Coordinador coord = conn.createQuery("SELECT * FROM coordinador WHERE id = :cid")
+                .addParameter("cid", cid)
+                .executeAndFetchFirst(Coordinador.class);
+            conn.close();
+            return coord;
+        }
+        catch(Exception e){
             System.out.println(e.getMessage());
             return null;
         }

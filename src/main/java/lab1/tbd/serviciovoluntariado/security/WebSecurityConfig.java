@@ -28,20 +28,19 @@ public class WebSecurityConfig{
         jwtAuthenticationFilter.setAuthenticationManager(authManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/login");
         return http
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/voluntario/register/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .authenticationEntryPoint(authenticationEntryPoint())
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilter(jwtAuthenticationFilter)
-                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+            .csrf().disable()
+            .authorizeHttpRequests((requests) -> requests
+                .requestMatchers(HttpMethod.POST, "/coordinador/register", "/coordinador/voluntario").permitAll()
+                .anyRequest().authenticated())
+            .httpBasic()
+            .authenticationEntryPoint(authenticationEntryPoint())
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .addFilter(jwtAuthenticationFilter)
+            .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+            .build();
     }
 
 

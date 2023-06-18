@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lab1.tbd.serviciovoluntariado.models.Voluntario;
+import lab1.tbd.serviciovoluntariado.models.Coordinador;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails{
 
     // private final Usuario usuario;
-    private final Voluntario voluntario;
+    private final Coordinador coordinador;
 
 
     @Override
@@ -24,13 +24,13 @@ public class UserDetailsImpl implements UserDetails{
     @Override
     public String getPassword() {
         // return usuario.getPassword();
-        return voluntario.getPassword();
+        return coordinador.getPassword();
     }
 
     @Override
     public String getUsername() {
         // return usuario.getEmail();
-        return voluntario.getCorreoElectronico();
+        return coordinador.getCorreo_electronico();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserDetailsImpl implements UserDetails{
 
     public String getNombre() {
         // return usuario.getName();'
-        return voluntario.getNombre();
+        return coordinador.getNombre();
     }
 
     

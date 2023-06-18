@@ -6,16 +6,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import lab1.tbd.serviciovoluntariado.models.Voluntario;
-import lab1.tbd.serviciovoluntariado.repositories.VoluntarioRepository;
+import lab1.tbd.serviciovoluntariado.models.Coordinador;
+import lab1.tbd.serviciovoluntariado.repositories.CoordinadorRepository;
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService{
-
-    // @Autowired
-    // private UsuarioRepository usuarioRepository;
+public class UserDetailServiceImpl implements UserDetailsService
+{
     @Autowired
-    private VoluntarioRepository voluntarioRepository;
+    private CoordinadorRepository coordinadorRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -24,9 +22,10 @@ public class UserDetailServiceImpl implements UserDetailsService{
         //         .orElseThrow(() -> new UsernameNotFoundException("el usuario con email " + email + "no existe" ));
         // return new UserDetailsImpl(usuario);
 
-        Voluntario voluntario = voluntarioRepository
-            .findOneByCorreoElectronico(email)
-            .orElseThrow(() -> new UsernameNotFoundException("el usuario con email " + email + "no existe" ));
-        return new UserDetailsImpl(voluntario);
+        Coordinador coordinador = coordinadorRepository.findOneByEmail(email);
+        if(coordinador == null){
+            throw new UsernameNotFoundException("el usuario con email " + email + "no existe" );
+        }
+        return new UserDetailsImpl(coordinador);
     }   
 }

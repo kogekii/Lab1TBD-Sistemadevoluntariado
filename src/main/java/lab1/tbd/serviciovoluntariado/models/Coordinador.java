@@ -1,8 +1,17 @@
 package lab1.tbd.serviciovoluntariado.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import java.util.Date;
 
+@Entity
 public class Coordinador {
+    @Id
+    @SequenceGenerator(name="coordinador_generator", sequenceName="coordinador_id_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="coordinador_generator")
     private Long id;
     private String nombre;
     private String apellido;
