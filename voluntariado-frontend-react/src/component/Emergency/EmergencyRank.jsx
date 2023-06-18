@@ -9,28 +9,31 @@ function findTarea(tareas, id){
 function EmergencyRank({ className, ranking, tareas }) {
     return (
         <Card className={className}>
-            <Table className="table-emergency-voluntarios-list">
-                <thead>
-                    <tr>
-                        <th scope="col" style={{ width: '15%', textAlign: 'center' }}>Puntaje</th>
-                        <th scope="col" style={{ width: '25%' }}>Voluntario</th>
-                        <th scope="col">Tarea</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {ranking.map((rank) => (
-                        <tr key={rank.id}>
-                            <td align="center">{rank.puntos}</td>
-                            <td>
-                                <Link>Voluntario#{rank.id_voluntario}</Link>
-                            </td>
-                            <td>
-                                <Link to={'/s/dashboard/tareas/' + rank.id_tarea}>{findTarea(tareas, rank.id_tarea)}</Link>
-                            </td>
+            <Card.Header>Ranking de Voluntarios</Card.Header>
+            <Card.Body style={{ padding: 0 }}>
+                <Table className="table-emergency-voluntarios-list">
+                    <thead>
+                        <tr>
+                            <th scope="col" style={{ width: '15%', textAlign: 'center' }}>Puntaje</th>
+                            <th scope="col" style={{ width: '25%' }}>Voluntario</th>
+                            <th scope="col">Tarea</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {ranking.map((rank) => (
+                            <tr key={rank.id}>
+                                <td align="center">{rank.puntos}</td>
+                                <td>
+                                    <Link>Voluntario#{rank.id_voluntario}</Link>
+                                </td>
+                                <td>
+                                    <Link to={'/s/dashboard/tareas/' + rank.id_tarea}>{findTarea(tareas, rank.id_tarea)}</Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </Card.Body>
         </Card>
     )
 }

@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/esm/Container';
 import { useSession } from '../../../../services/Session/Session';
 import TaskDetail from '../../../../component/Task/TaskDetail';
 import TaskRank from '../../../../component/Task/TaskRank';
+import TaskMap from '../../../../component/Task/TaskMap';
 
 const INIT_STATE = {
 	loading: true,
@@ -55,6 +56,7 @@ export default function TareaView() {
 				}),
 			])
 			.then(([res1, res2]) => {
+				console.log(res1.data);
 				dispatch({
 					type: actions.FETCH_SUCCESS,
 					tarea: res1.data,
@@ -75,6 +77,7 @@ export default function TareaView() {
 			):(
 				<Fragment>
 					<TaskDetail className="mb-2" tarea={state.tarea} />
+					<TaskMap className="mb-2" tarea={state.tarea} />
 					<TaskRank ranking={state.ranking} />
 				</Fragment>
 			))}

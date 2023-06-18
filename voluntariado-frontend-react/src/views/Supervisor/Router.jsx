@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
+import AuthGuard from "../../component/AuthGuard";
 import SupervisorLoginView from "./Home/Login";
 import SupervisorDashboardIndexView from "./Dashboard/Index";
-import AuthGuard from "../../component/AuthGuard";
+import SupervisorRegisterView from "./Home/Register";
 
 export default function VoluntarioRouter(){
     return (
@@ -9,6 +10,11 @@ export default function VoluntarioRouter(){
             <Route path="login" element={
                 <AuthGuard isAuthenticated={false} redirect="/s/dashboard">
                     <SupervisorLoginView />
+                </AuthGuard>
+            } />
+            <Route path="register" element={
+                <AuthGuard isAuthenticated={false} redirect="/s/dashboard">
+                    <SupervisorRegisterView />
                 </AuthGuard>
             } />
             <Route path="dashboard/*" element={

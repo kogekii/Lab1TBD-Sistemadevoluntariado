@@ -11,6 +11,11 @@ const pages = [
 		id: 'emergencias',
 		label: 'Emergencias',
 		href: '/s/dashboard/emergencias',
+	},
+	{
+		id: 'regiones',
+		label: 'Regiones',
+		href: '/s/dashboard/regiones',
 	}
 ]
 
