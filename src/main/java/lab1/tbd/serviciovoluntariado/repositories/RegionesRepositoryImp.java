@@ -18,10 +18,10 @@ public class RegionesRepositoryImp implements RegionesRepository {
     @Override
     public List<Regiones> getAllRegiones() {
         final String sql =
-                "SELECT gid, nom_reg FROM division_regional";
+            "SELECT gid, nom_reg, ST_AsText(ST_FlipCoordinates(geom)) AS geom FROM division_regional WHERE nom_reg IS NOT NULL;";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
-                    .executeAndFetch(Regiones.class);
+                .executeAndFetch(Regiones.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -31,20 +31,19 @@ public class RegionesRepositoryImp implements RegionesRepository {
     @Override
     public List<Map<String, Object>> getRegionPoly(Long id) {
         final String sql =
-                "SELECT array_to_string(array_agg, ',') FROM \n" +
-                        "(SELECT array_agg( ST_x(geom)||' '||ST_y(geom))  FROM \n" +
-                        "    (SELECT (ST_dumppoints(geom)).geom FROM division_Regional\n" +
-                        "    where division_Regional.gid= :tid\n" +
-                        "    ) AS foo_1\n" +
-                        ") AS foo_2;";
+            "SELECT array_to_string(array_agg, ',') FROM \n" +
+            "(SELECT array_agg( ST_x(geom)||' '||ST_y(geom))  FROM \n" +
+            "    (SELECT (ST_dumppoints(geom)).geom FROM division_Regional\n" +
+            "    where division_Regional.gid= :tid\n" +
+            "    ) AS foo_1\n" +
+            ") AS foo_2;";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
-                    .addParameter("tid", id)
-                    .executeAndFetchTable().asList();
+                .addParameter("tid", id)
+                .executeAndFetchTable().asList();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
+            return List.of();
         }
     }
-
 }

@@ -1,10 +1,13 @@
 package lab1.tbd.serviciovoluntariado.services;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
+import lab1.tbd.serviciovoluntariado.models.Voluntario;
 import lab1.tbd.serviciovoluntariado.repositories.TareaRepository;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -65,5 +68,25 @@ public class TareaService {
     @ResponseBody
     public List<Tarea> getTareaByEmergenciaId(@PathVariable Long id){
         return tareaRepository.getTareasByEmergencia(id);
+    }
+
+    // Special query
+    @GetMapping("/{id}/voluntarios")
+    @ResponseBody
+    public List<Voluntario> getClosestVoluntarios(@PathVariable Long id, @RequestParam Map<String,String> searchParams){
+        Long limit;
+        if(searchParams.containsKey("limit")){
+            try {
+                limit = Long.parseLong(searchParams.get("limit"));
+            }
+            catch(Exception err) {
+                System.out.println(err.getMessage());
+                limit = 10L;
+            }
+        }
+        else {
+            limit = 10L;
+        }
+        return tareaRepository.getClosestVoluntarios(id, limit);
     }
 }

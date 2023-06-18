@@ -1,17 +1,16 @@
 
 spring.jpa.database=POSTGRESQL
 spring.sql.init.platform=postgres
-spring.datasource.url=jdbc:postgresql://localhost:5432/espacio
+spring.datasource.url=jdbc:postgresql://localhost:5432/voluntariado
 spring.datasource.username=postgres
-spring.datasource.password=1234
+spring.datasource.password=postgres
 spring.jpa.show-sql=true
 spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=validate
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 spring.jpa.properties.hibernate.connection.autocommit=false
 
-
-database.url=jdbc:postgresql://localhost:5432/espacio
+database.url=jdbc:postgresql://localhost:5432/voluntariado
 database.user=postgres
-database.password=1234
+database.password=postgres
 server.port=8080

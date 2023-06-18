@@ -2,6 +2,7 @@
 package lab1.tbd.serviciovoluntariado.repositories;
 
 import lab1.tbd.serviciovoluntariado.models.Tarea;
+import lab1.tbd.serviciovoluntariado.models.Voluntario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -133,10 +134,11 @@ public class TareaRepositoryImp implements TareaRepository
     @Override
     public Tarea getTarea(Long id) {
         final String sql =
-                "SELECT * FROM tarea e WHERE e.id = "+id;
+            "SELECT *, ST_X(ST_FlipCoordinates(coordenadas)) AS longitude, ST_Y(ST_FlipCoordinates(coordenadas)) AS latitude "+
+            "FROM tarea t WHERE t.id = :tid";
         try(Connection conn = sql2o.open()){
-            Tarea tarea = (Tarea) conn.createQuery(sql).executeAndFetchFirst(Tarea.class);
-            System.out.println(tarea.getId()+": "+tarea.getNombre());
+            Tarea tarea = (Tarea)conn.createQuery(sql).addParameter("tid", id).executeAndFetchFirst(Tarea.class);
+            System.out.println("SELECT Tarea("+ tarea.getId() +", \""+ tarea.getNombre() +"\")");
             return tarea;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -157,8 +159,11 @@ public class TareaRepositoryImp implements TareaRepository
 
     public List<Tarea> getTareasByRegion(Long gid){
         final String sql =
-            "SELECT id,nombre,descripcion,id_estado_tarea,id_emergencia, st_x(st_astext(coordenadas)) AS longitude, st_y(st_astext(coordenadas)) AS latitude FROM division_regional dr , tarea t where " +
-            "ST_CONTAINS(dr.geom,ST_FlipCoordinates(t.coordenadas)) and dr.gid = :tid";
+            "SELECT id,nombre,descripcion,id_estado_tarea,id_emergencia,"+
+                "ST_X(ST_Transform(t.coordenadas,4326)) AS longitude,"+
+                "ST_Y(ST_Transform(t.coordenadas,4326)) AS latitude "+
+            "FROM division_regional dr, tarea t " +
+            "WHERE ST_CONTAINS(ST_SetSRID(dr.geom, 4326), ST_FlipCoordinates(t.coordenadas)) and dr.gid = :tid";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                 .addParameter("tid",gid)
@@ -181,5 +186,22 @@ public class TareaRepositoryImp implements TareaRepository
         }finally{
             conn.close();
         }
+    }
+
+    @Override
+    public List<Voluntario> getClosestVoluntarios(Long tid, Long limit) {
+        String sql =
+            "SELECT voluntario.* "+
+            "FROM tarea t, voluntario v "+
+            "WHERE t.id = :id "+
+            "ORDER BY ST_Distance(ST_FlipCoordinates(t.coordenadas), ST_FlipCoordinates(v.coordenadas)) DESC "+
+            "LIMIT :limit";
+        Connection session = sql2o.open();
+        List<Voluntario> result = session.createQuery(sql)
+            .addParameter("id", tid)
+            .addParameter("limit", limit)
+            .executeAndFetch(Voluntario.class);
+        session.close();
+        return result;
     }
 }
