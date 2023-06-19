@@ -18,7 +18,7 @@ public class RegionesRepositoryImp implements RegionesRepository {
     @Override
     public List<Regiones> getAllRegiones() {
         final String sql =
-            "SELECT gid, nom_reg, ST_AsText(ST_FlipCoordinates(geom)) AS geom FROM division_regional WHERE nom_reg IS NOT NULL;";
+            "SELECT gid, nom_reg, ST_AsText(ST_FlipCoordinates(geom)) AS geom FROM division_regional;";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                 .executeAndFetch(Regiones.class);

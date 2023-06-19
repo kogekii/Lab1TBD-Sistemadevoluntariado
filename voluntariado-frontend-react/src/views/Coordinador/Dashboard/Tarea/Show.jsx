@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useReducer } from 'react';
+import { Fragment, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
