@@ -1,10 +1,10 @@
 -- Se crea la base de datos:
 
-CREATE DATABASE voluntariado;
+CREATE DATABASE voluntariadofinal;
 
 -- Se selecciona la base de datos recien creada
 
-\c voluntariado;
+\c voluntariadofinal;
 
 CREATE EXTENSION postgis;
 
