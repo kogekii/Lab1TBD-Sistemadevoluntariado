@@ -53,7 +53,7 @@ Se debe crear un archivo `application.properties` en la carpeta `src/main/resour
 
 Se deben reemplazar, de ser necesario, las credenciales de acceso a la base de datos postgres (usuario, contraseña y nombre de la base de datos) en el documento `application.properties`.
 
-Para ejecutar el codigo se debe abrir la carpeta raiz del proyecto con el IDE Intellij y abrir el archivo llamado ServiciovoluntariadoApplication.java y presionar el boton de play verde en el editor.
+Para ejecutar el código se debe abrir la carpeta raiz del proyecto con el IDE Intellij y abrir el archivo llamado ServiciovoluntariadoApplication.java y presionar el boton de play verde en el editor.
 
 Alternativamente, en Linux, se puede ejecutar la aplicacion a traves de linea de comandos en la carpeta raiz del proyecto, de la siguiente forma:
 
@@ -61,17 +61,17 @@ Alternativamente, en Linux, se puede ejecutar la aplicacion a traves de linea de
 $ ./mvnw spring-boot:run
 ```
 
-Notar que antes de ejecutar la aplicacion se deben instalar las dependencias. A traves del IDE Intellij, se pueden instalar automaticamente ustilizando el plugin de Maven. En linux se puede tambien utilizar el comando `./mvnw clean install` a través de una terminal en el directorio raiz del proyecto.
+Notar que antes de ejecutar la aplicacion se deben instalar las dependencias. A traves del IDE Intellij, se pueden instalar automaticamente utilizando el plugin de Maven. En linux se puede tambien utilizar el comando `./mvnw clean install` a través de una terminal en el directorio raiz del proyecto.
 
 ### Frontend
 
-El codigo fuente de la parte del frontend del proyecto se encuentra en la carpeta `voluntariado-frontend-react`. Antes de poder ejecutar el frontend, se deben instalar sus dependencias, en una consola utilizando en siguiente comando:
+El código fuente de la parte del frontend del proyecto se encuentra en la carpeta `voluntariado-frontend-react`. Antes de poder ejecutar el frontend, se deben instalar sus dependencias, en una consola utilizando en siguiente comando:
 
 ```
 npm instal
 ```
 
-Luego, para poder ejecutar el codigo del frontend se utiliza en siguiente codigo:
+Luego, para poder ejecutar el código del frontend se utiliza en siguiente código:
 
 ```
 npm run start
@@ -103,21 +103,21 @@ Y para eliminar los contenedores:
 docker-compose down
 ```
 
-> `NOTA`: Ejecutar `docker-compose down` no va a borrar los datos de la base de datos mientras no se eliminen los volumenes.
+> **NOTA**: Ejecutar `docker-compose down` no va a borrar los datos de la base de datos mientras no se eliminen los volumenes.
 
 ## Poblar la base de datos
 
-> `NOTA`: Los scripts SQL necesario se encuentran en la carpeta `ScriptsBD`.
+> **NOTA**: Los scripts SQL necesario se encuentran en la carpeta `ScriptsBD`.
 
 Existen 2 formas de poblar la base de datos.
 
-La primera es ejecutar los scripts SQL a traves de pgadmin. Se puede directamente copiar el codigo en el "Query Tool" que provee en el siguiente orden:
+La primera es ejecutar los scripts SQL a traves de pgadmin. Se puede directamente copiar el código en el "Query Tool" que provee en el siguiente orden:
 
 1. `dbCreate.sql`
 2. `division_regional.sql`
 3. `loadData.sql`
 
-> `NOTA`: En el script `dbCreate.sql` se hace referencia a la base de datos `voluntariadofinal`, en caso de que se haya cambiado o se quiera usar otro nombre, se puede simplemente reemplazar antes de ejecutar el script.
+> **NOTA**: En el script `dbCreate.sql` se hace referencia a la base de datos `voluntariadofinal`, en caso de que se haya cambiado o se quiera usar otro nombre, se puede simplemente reemplazar antes de ejecutar el script.
 
 La segunda forma (disponible en Linux) es utilizando el comando `psql` que se instala junto con postgres, y se puede utilizar de la siguiente forma:
 
