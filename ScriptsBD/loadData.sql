@@ -7,6 +7,8 @@ INSERT into estado_tarea(id, estado) VALUES
 (3, 'Pendiente'),
 (4, 'Incumplida');
 
+SELECT setval('estado_tarea_id_seq', 4, true);
+
 -- Carga Datos para tabla habilidad
 INSERT INTO habilidad(id,nombre,descripcion) VALUES
 (1,'Limpieza de escombros','Recoger escombros, tierra, etc.'),
@@ -23,18 +25,8 @@ INSERT INTO habilidad(id,nombre,descripcion) VALUES
 (12,'Mensajero','Capacidad de poder trasladar comida y medicamentos'),
 (13,'Telecomunicador','Puede establecer comunicaciones a distancia, manteniendo a todos comunicados');
 
--- Carga datos para tabla voluntario
-INSERT INTO voluntario(id,estado_salud,nombre,apellido,correo_electronico, password) VALUES
-(1,'Estresado','Leonardo', 'Munoz', 'leonardo.munoz.f@usach.cl', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(2,'Bueno','Leo', 'Messi', 'leomessi@usach.cl', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(3,'Saludable','Elvis', 'Cocho', 'elvis.cocho@usach.cl', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(4,'Saludable','Israel', 'Arias', 'israel.arias@usach.cl', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(5,'Saludable','Jose', 'Tronco', 'jose.tronco@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(6,'Saludable','Armando', 'Paredes', 'armando.paredes@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(7,'Poderoso','Ricardo', 'Milos', 'ricardo.milos@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(8,'Disponible','Juan', 'Perez', 'juan.perez@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(9,'Bueno','Gabriel', 'Boric', 'gabriel.boric@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(10,'Bueno','Arnol', 'chopsuei', 'arnol051@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe');
+SELECT setval('habilidad_id_seq', 13, true);
+
 
 -- Carga Datos para tabla emergencia
 INSERT INTO emergencia(id,nombre,ubicacion,fecha,descripcion, coordenadas) VALUES
@@ -48,6 +40,9 @@ INSERT INTO emergencia(id,nombre,ubicacion,fecha,descripcion, coordenadas) VALUE
 (8, 'Alud', 'Cabeza del Indio', '1984-07-03', 'Alud afecta al sector de Cabeza del Indio en el paso fronterizo Los Libertadores', ST_GeomFromText('POINT(-41.4693 -72.94237)', 4326)),
 (9, 'Inundaciones por marejadas', 'Valparaiso', '2015-07-28', 'Marejadas causan inundacion de estacionamientos en Valparaiso, a la altura del Puente Quinta del estero Marga Marga', ST_GeomFromText('POINT(-33.036 -71.62963)', 4326)),
 (10, 'Desborde de canal', 'Maipu', '2016-03-17', 'Desborde del canal Santa Marta provoca anegamiento de las viviendas cercanas', ST_GeomFromText('POINT(-33.61169 -70.57577)', 4326));
+
+SELECT setval('emergencia_id_seq', 10, true);
+
 
 -- Carga datos para tabla eme_habilidad
 INSERT INTO eme_habilidad(id,id_emergencia,id_habilidad) VALUES
@@ -63,6 +58,8 @@ INSERT INTO eme_habilidad(id,id_emergencia,id_habilidad) VALUES
 (10,2,3),
 (11,2,11),
 (12,2,13);
+SELECT setval('eme_habilidad_id_seq', 12, true);
+
 
 -- Cargar datos de tarea
 INSERT into tarea(id, nombre, descripcion, id_estado_tarea, id_emergencia, coordenadas) VALUES
@@ -86,6 +83,62 @@ INSERT into tarea(id, nombre, descripcion, id_estado_tarea, id_emergencia, coord
 (18, 'Repartir comida', 'Distribuir comida entre los afectados', 1, 2, ST_GeomFromText('POINT(-29.90453 -71.24894)', 4326)),
 (19, 'Repartir agua', 'Distribuir agua entre los afectados', 3, 2, ST_GeomFromText('POINT(-36.60664 -72.10344)', 4326)),
 (20, 'Repartir medicamentos', 'Distribuir medicamentos entre los afectados', 3, 2, ST_GeomFromText('POINT(-33.04222 -71.37333)', 4326));
+SELECT setval('tarea_id_seq', 20, true);
+
+
+-- Cargar datos para tabla de voluntarios
+INSERT INTO voluntario(id,estado_salud,nombre,apellido,correo_electronico,password, coordenada) VALUES
+(1,'Estresado','Leonardo','Munoz','leonardo.munoz.f@usach.cl','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A3B191C258340C0E8BCC62E51E351C0'),
+(2,'Bueno','Leo','Messi','leomessi@usach.cl','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000027A5A0DB4BCE40C026016A6AD9A451C0'),
+(3,'Saludable','Elvis','Cocho','elvis.cocho@usach.cl','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F437A11001A737C0A835CD3B4E9951C0'),
+(4,'Saludable','Israel','Arias','israel.arias@usach.cl','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A3B191C258340C0E8BCC62E51E351C0'),
+(5,'Saludable','Jose','Tronco','jose.tronco@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F853E3A59B8440C027A5A0DB4BE851C0'),
+(6,'Saludable','Armando','Paredes','armando.paredes@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F7C77BD5CA5C42C056B77A4E7A4752C0'),
+(7,'Poderoso','Ricardo','Milos','ricardo.milos@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000000FD6FF39CCCB40C00612143FC6AC51C0'),
+(8,'Disponible','Juan','Perez','juan.perez@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000423EE8D9AC5E43C06E5166834C2652C0'),
+(9,'Bueno','Gabriel','Boric','gabriel.boric@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000828B1535983634C07AE40F069E8951C0'),
+(10,'Bueno','Arnol','chopsuei','arnol051@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003D0FEECEDA6942C09A94826E2F4352C0'),
+(11,'Saludable','Rebecca','Robinson','kmorton@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000007D96E7C1DD1541C06475ABE7A4AF51C0'),
+(12,'Saludable','James','Nicholson','stephensdanielle@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000002B7EEE6A9CA40C0D15CA79196A851C0'),
+(13,'Saludable','Joseph','Beck','estewart@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000D881734694B641C03D49BA66F2E951C0'),
+(14,'Saludable','Jenna','Hoffman','jason27@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000007DAEB6627F7932C0C2340C1F119351C0'),
+(15,'Saludable','Christopher','Jensen','ruthwilliams@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000006B9F8EC70CF43DC048FE60E0B9D551C0'),
+(16,'Saludable','Cindy','Collins','millercarly@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000A301BC0512BC44C0D1AE42CA4F3C52C0'),
+(17,'Saludable','Christine','Wagner','shawn77@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A4030478FE73DC0A4AA09A2EECF51C0'),
+(18,'Saludable','David','Bailey','rrodriguez@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A4030478FE73DC0A4AA09A2EECF51C0'),
+(19,'Saludable','Heather','Perez','josephlewis@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000004392861A64D42C04A46CEC29E0652C0'),
+(20,'Saludable','Tina','Nichols','robertsariel@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000005A9E0777678540C0672783A3E4D751C0'),
+(21,'Saludable','Charlene','Spencer','gonzalezeric@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A3B191C258340C0E8BCC62E51E351C0'),
+(22,'Saludable','Melissa','Mason','thomas82@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000027A5A0DB4BCE40C026016A6AD9A451C0'),
+(23,'Saludable','Steven','Adams','deborah76@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F437A11001A737C0A835CD3B4E9951C0'),
+(24,'Saludable','Samantha','Chandler','darrellweaver@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A3B191C258340C0E8BCC62E51E351C0'),
+(25,'Saludable','Alyssa','Walker','ustanley@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F853E3A59B8440C027A5A0DB4BE851C0'),
+(26,'Saludable','Samantha','Henderson','faithmcmillan@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F7C77BD5CA5C42C056B77A4E7A4752C0'),
+(27,'Saludable','Tyler','Blair','joneskaren@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000000FD6FF39CCCB40C00612143FC6AC51C0'),
+(28,'Saludable','Lori','Daniel','vle@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000423EE8D9AC5E43C06E5166834C2652C0'),
+(29,'Saludable','Christopher','Smith','brenda55@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000828B1535983634C07AE40F069E8951C0'),
+(30,'Saludable','Leslie','Walker','morganpatricia@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003D0FEECEDA6942C09A94826E2F4352C0'),
+(31,'Saludable','Dana','Nolan','millermichael@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000007D96E7C1DD1541C06475ABE7A4AF51C0'),
+(32,'Saludable','Ashley','Harris','brittanywilliams@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000002B7EEE6A9CA40C0D15CA79196A851C0'),
+(33,'Saludable','Monica','Smith','wcervantes@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000D881734694B641C03D49BA66F2E951C0'),
+(34,'Saludable','Matthew','Fisher','julie79@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000007DAEB6627F7932C0C2340C1F119351C0'),
+(35,'Saludable','Patricia','Ross','houstoncheryl@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000006B9F8EC70CF43DC048FE60E0B9D551C0'),
+(36,'Saludable','Catherine','Martin','brandon28@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000A301BC0512BC44C0D1AE42CA4F3C52C0'),
+(37,'Saludable','Joshua','Morgan','ortegajillian@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A4030478FE73DC0A4AA09A2EECF51C0'),
+(38,'Saludable','Tracey','Smith','nharris@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A4030478FE73DC0A4AA09A2EECF51C0'),
+(39,'Saludable','Daniel','Nicholson','patricia64@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000004392861A64D42C04A46CEC29E0652C0'),
+(40,'Saludable','Jill','Brown','qsanders@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000005A9E0777678540C0672783A3E4D751C0'),
+(41,'Saludable','Danny','Price','ronnieriley@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A3B191C258340C0E8BCC62E51E351C0'),
+(42,'Saludable','Leslie','King','davisdavid@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000027A5A0DB4BCE40C026016A6AD9A451C0'),
+(43,'Saludable','Jessica','Harris','jonathanosborne@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F437A11001A737C0A835CD3B4E9951C0'),
+(44,'Saludable','Amanda','Johnson','alexis76@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A3B191C258340C0E8BCC62E51E351C0'),
+(45,'Saludable','Shane','Wood','powellhailey@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F853E3A59B8440C027A5A0DB4BE851C0'),
+(46,'Saludable','Carrie','Shaw','michaelshaw@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F7C77BD5CA5C42C056B77A4E7A4752C0'),
+(47,'Saludable','Mark','Miller','nicoleclark@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000000FD6FF39CCCB40C00612143FC6AC51C0'),
+(48,'Saludable','Joshua','Williams','benjamindana@yahoo.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000423EE8D9AC5E43C06E5166834C2652C0'),
+(49,'Saludable','Kevin','Avery','jacquelinemorgan@hotmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000828B1535983634C07AE40F069E8951C0'),
+(50,'Saludable','Cameron','Warner','ortizjames@gmail.com','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003D0FEECEDA6942C09A94826E2F4352C0');
+SELECT setval('voluntario_id_seq', 50, true);
 
 
 -- Carga datos para tabla ranking
@@ -114,6 +167,7 @@ INSERT INTO ranking(id, puntos, id_tarea, id_voluntario) VALUES
 (22, 350, 19, 7),
 (23, 150, 19, 3),
 (24, 400, 17, 1);
+SELECT setval('ranking_id_seq', 24, true);
 
 
 -- Carga datos para tabla institucion
@@ -131,6 +185,8 @@ INSERT INTO institucion(id,razon_social) VALUES
 (11,'Chile_conectado'),
 (12,'Ayuda_incendios');
 
+SELECT setval('institucion_id_seq', 12, true);
+
 
 
 -- Carga datos para tabla coordinador
@@ -146,48 +202,8 @@ INSERT INTO coordinador(id,nombre,apellido,estado_salud,password,correo_electron
 (9,'tony','stark','Saludable','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','stark@gmail.com',9),
 (10,'bruce','wayne','Saludable','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','wayne@gmail.com',10);
 
--- Cargar datos para tabla de voluntarios
-INSERT INTO voluntario(id,estado_salud,nombre,apellido,correo_electronico,password) VALUES
-(11,'Saludable', 'Rebecca', 'Robinson', 'kmorton@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(12,'Saludable', 'James', 'Nicholson', 'stephensdanielle@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(13,'Saludable', 'Joseph', 'Beck', 'estewart@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(14,'Saludable', 'Jenna', 'Hoffman', 'jason27@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(15,'Saludable', 'Christopher', 'Jensen', 'ruthwilliams@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(16,'Saludable', 'Cindy', 'Collins', 'millercarly@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(17,'Saludable', 'Christine', 'Wagner', 'shawn77@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(18,'Saludable', 'David', 'Bailey', 'rrodriguez@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(19,'Saludable', 'Heather', 'Perez', 'josephlewis@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(20,'Saludable', 'Tina', 'Nichols', 'robertsariel@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(21,'Saludable', 'Charlene', 'Spencer', 'gonzalezeric@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(22,'Saludable', 'Melissa', 'Mason', 'thomas82@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(23,'Saludable', 'Steven', 'Adams', 'deborah76@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(24,'Saludable', 'Samantha', 'Chandler', 'darrellweaver@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(25,'Saludable', 'Alyssa', 'Walker', 'ustanley@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(26,'Saludable', 'Samantha', 'Henderson', 'faithmcmillan@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(27,'Saludable', 'Tyler', 'Blair', 'joneskaren@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(28,'Saludable', 'Lori', 'Daniel', 'vle@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(29,'Saludable', 'Christopher', 'Smith', 'brenda55@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(30,'Saludable', 'Leslie', 'Walker', 'morganpatricia@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(31,'Saludable', 'Dana', 'Nolan', 'millermichael@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(32,'Saludable', 'Ashley', 'Harris', 'brittanywilliams@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(33,'Saludable', 'Monica', 'Smith', 'wcervantes@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(34,'Saludable', 'Matthew', 'Fisher', 'julie79@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(35,'Saludable', 'Patricia', 'Ross', 'houstoncheryl@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(36,'Saludable', 'Catherine', 'Martin', 'brandon28@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(37,'Saludable', 'Joshua', 'Morgan', 'ortegajillian@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(38,'Saludable', 'Tracey', 'Smith', 'nharris@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(39,'Saludable', 'Daniel', 'Nicholson', 'patricia64@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(40,'Saludable', 'Jill', 'Brown', 'qsanders@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(41,'Saludable', 'Danny', 'Price', 'ronnieriley@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(42,'Saludable', 'Leslie', 'King', 'davisdavid@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(43,'Saludable', 'Jessica', 'Harris', 'jonathanosborne@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(44,'Saludable', 'Amanda', 'Johnson', 'alexis76@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(45,'Saludable', 'Shane', 'Wood', 'powellhailey@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(46,'Saludable', 'Carrie', 'Shaw', 'michaelshaw@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(47,'Saludable', 'Mark', 'Miller', 'nicoleclark@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(48,'Saludable', 'Joshua', 'Williams', 'benjamindana@yahoo.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(49,'Saludable', 'Kevin', 'Avery', 'jacquelinemorgan@hotmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe'),
-(50,'Saludable', 'Cameron', 'Warner', 'ortizjames@gmail.com', '$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe');
+SELECT setval('coordinador_id_seq', 10, true);
+
 
 -- Cargar datos para tabla equipamiento
 INSERT INTO equipamiento(id, nombre, descripcion, id_voluntario) VALUES
@@ -242,6 +258,10 @@ INSERT INTO equipamiento(id, nombre, descripcion, id_voluntario) VALUES
 (49,'Desfibrilador','descripción del equipo',8),
 (50,'Equipo de primeros auxilios','descripción del equipo',2);
 
+
+SELECT setval('equipamiento_id_seq', 50, true);
+
+
 -- Carga datos para tabla tarea_habilidad
 INSERT INTO tarea_habilidad(id, id_tarea, id_eme_habilidad) VALUES
 (1, 1, 1),
@@ -284,6 +304,8 @@ INSERT INTO tarea_habilidad(id, id_tarea, id_eme_habilidad) VALUES
 (38, 8, 8),
 (39, 9, 9),
 (40, 2, 12);
+
+SELECT setval('tarea_habilidad_id_seq', 40, true);
 
 
 INSERT INTO vol_habilidad(id,id_voluntario,id_habilidad) VALUES
@@ -488,6 +510,8 @@ INSERT INTO vol_habilidad(id,id_voluntario,id_habilidad) VALUES
 (199,50,6),
 (200,50,8);
 
+SELECT setval('vol_habilidad_id_seq', 200, true);
+
 -- Carga datos para tabla voluntario_tarea
 INSERT INTO voluntario_tarea(id, id_tarea, id_voluntario) VALUES
 (1, 1, 6),
@@ -520,6 +544,8 @@ INSERT INTO voluntario_tarea(id, id_tarea, id_voluntario) VALUES
 (28, 8, 29),
 (29, 9, 13),
 (30, 10, 31);
+
+SELECT setval('voluntario_tarea_id_seq', 30, true);
 
 -- eme-habilidad
 CREATE OR REPLACE FUNCTION eme_habilidades_function_update()
