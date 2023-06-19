@@ -18,7 +18,7 @@ Para este fin, se propone crear un sistema para la gestion del voluntariado espo
 # Caracteristicas
 
 **Modulo de coordinacion**
-Se construyo un modulo consistente en una aplicacion web para la gestion de coordinadores, quienes pueden crear emergencias y tareas, ademas de definir requisitos para cada una de estas.
+Se construyo un modulo consistente en una aplicación web para la gestion de coordinadores, quienes pueden crear emergencias y tareas, ademas de definir requisitos para cada una de estas.
 
 **Modulo de voluntariado**
 Por otro lado, se construyo un modulo web para que voluntarios puedan registrarse, crear y editar perfiles, ver y registrarse en emergencias activas, registrar habilidades que posee y puedan ser utiles en una emergencia, ver y aceptar tareas, ademas de actualizar el estado de las mismas.
@@ -49,41 +49,41 @@ Las instrucciones sobre como ejecutarlos se encuentran en la seccion [Poblar la 
 
 ### Backend
 
-Se debe crear un archivo `application.properties` en la carpeta `src/main/resources/`. Para ello se diponse de un archivo de ejemplo `application.properties.example` que se puede copiar para.
+Se debe crear un archivo `application.properties` en la carpeta `src/main/resources/`. Para ello se dipone de un archivo de ejemplo `application.properties.example` que se puede copiar y utilizar como base.
 
-Se deben reemplazar, de ser necesario, las credenciales de acceso a la base de datos postgres (usuario, contraseña y nombre de la base de datos) en el documento `application.properties`.
+Se deben reemplazar, de ser necesario, las credenciales de acceso a la base de datos postgres (usuario, contraseña y nombre de la base de datos) en el archivo `application.properties` creado.
 
-Para ejecutar el código se debe abrir la carpeta raiz del proyecto con el IDE Intellij y abrir el archivo llamado ServiciovoluntariadoApplication.java y presionar el boton de play verde en el editor.
+Para ejecutar el código se debe abrir la carpeta raíz del proyecto con el IDE Intellij y abrir el archivo llamado `ServiciovoluntariadoApplication.java` y presionar el boton de play verde "Run" en el editor.
 
-Alternativamente, en Linux, se puede ejecutar la aplicacion a traves de linea de comandos en la carpeta raiz del proyecto, de la siguiente forma:
+Alternativamente, en Linux, se puede ejecutar la aplicación a través de linea de comandos en la carpeta raíz del proyecto, de la siguiente forma:
 
 ```sh
 $ ./mvnw spring-boot:run
 ```
 
-Notar que antes de ejecutar la aplicacion se deben instalar las dependencias. A traves del IDE Intellij, se pueden instalar automaticamente utilizando el plugin de Maven. En linux se puede tambien utilizar el comando `./mvnw clean install` a través de una terminal en el directorio raiz del proyecto.
+Notar que antes de ejecutar la aplicación se deben instalar las dependencias. A través del IDE Intellij, se pueden instalar automaticamente utilizando el plugin de Maven. En linux se puede tambien utilizar el comando `./mvnw clean install` a través de una terminal en el directorio raíz del proyecto.
 
 ### Frontend
 
-El código fuente de la parte del frontend del proyecto se encuentra en la carpeta `voluntariado-frontend-react`. Antes de poder ejecutar el frontend, se deben instalar sus dependencias, en una consola utilizando en siguiente comando:
+El código fuente de la parte del frontend del proyecto se encuentra en la carpeta `voluntariado-frontend-react`. Antes de poder ejecutar el frontend se deben instalar las dependencias en una consola utilizando en siguiente comando:
 
 ```
-npm instal
+npm install
 ```
 
-Luego, para poder ejecutar el código del frontend se utiliza en siguiente código:
+Luego, para poder ejecutar un servidor web de pruebas para el frontend se utiliza en siguiente código:
 
 ```
 npm run start
 ```
 
-Si se ejecuto lo anterios sin problemas, a continuacion se pobra visualizar la interfaz grafica de la aplicacion en el navegador donde se encontraran todas las vistas del sistema.
+Si se ejecutó lo anterior sin problemas, a continuación se podrá visualizar la interfaz gráfica de la aplicación en el navegador donde se encontraran todas las vistas del sistema. Por defecto se puede acceder al frontend en con la url [http://localhost:3000/](http://localhost:3000/).
 
 ## Correr una BD con Docker
 
 En el proyecto se podrá encontrar un archivo `docker-compose.yml` para poder crear y ejecutar una base de datos postgres+postgis, junto con una instancia de pgadmin.
 
-Cabe destacar que de ser necesario se deben modificar las credenciales por defecto en ese archivo para que coincidan con las credenciales definidas en el archivo `application.properties`.
+Cabe destacar que de ser necesario se deben modificar las credenciales por defecto en el archivo `docker-compose.yml` para que coincidan con las credenciales definidas en el archivo `application.properties`.
 
 Para ejecutar el servidor de base de datos postgres y pgadmin:
 
@@ -111,7 +111,7 @@ docker-compose down
 
 Existen 2 formas de poblar la base de datos.
 
-La primera es ejecutar los scripts SQL a traves de pgadmin. Se puede directamente copiar el código en el "Query Tool" que provee en el siguiente orden:
+La primera es ejecutar los scripts SQL a través de pgadmin. Se puede directamente copiar el código en el "Query Tool" que provee en el siguiente orden:
 
 1. `dbCreate.sql`
 2. `division_regional.sql`
