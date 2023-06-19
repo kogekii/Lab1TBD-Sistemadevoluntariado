@@ -87,7 +87,7 @@ SELECT setval('tarea_id_seq', 20, true);
 
 
 -- Cargar datos para tabla de voluntarios
-INSERT INTO voluntario(id,estado_salud,nombre,apellido,correo_electronico,password, coordenada) VALUES
+INSERT INTO voluntario(id,estado_salud,nombre,apellido,correo_electronico,password, coordenadas) VALUES
 (1,'Estresado','Leonardo','Munoz','leonardo.munoz.f@usach.cl','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E61000003A3B191C258340C0E8BCC62E51E351C0'),
 (2,'Bueno','Leo','Messi','leomessi@usach.cl','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E610000027A5A0DB4BCE40C026016A6AD9A451C0'),
 (3,'Saludable','Elvis','Cocho','elvis.cocho@usach.cl','$2a$10$qpkjcJ4AXy6uf16wudVS7OWq.pXgb.TRi7wVUDws3M9w4LqauyOZe','0101000020E6100000F437A11001A737C0A835CD3B4E9951C0'),

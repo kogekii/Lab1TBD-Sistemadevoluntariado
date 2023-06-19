@@ -120,10 +120,9 @@ CREATE TABLE IF NOT EXISTS voluntario(
 	apellido VARCHAR(40),
 	correo_electronico 	VARCHAR(60),
 	password VARCHAR(60),
+	coordenadas geometry(point),
 	created_at timestamp default now(),
-    	updated_at timestamp default now(),
-	coordenada VARCHAR(60)
-
+    updated_at timestamp default now()
 );
 CREATE INDEX idx_voluntario_correo ON voluntario(correo_electronico);
 
