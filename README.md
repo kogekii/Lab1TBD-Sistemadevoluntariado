@@ -129,7 +129,7 @@ La segunda forma (disponible en Linux) es utilizando el comando `psql` que se in
     ```sh
     $ cat "/scripts/division_regional.sql" | psql voluntariadofinal
     ```
-3. Importar los datos para postgis de las regiones de Chile:
+3. Poblar la base de datos de prueba:
     ```sh
     $ cat "/scripts/loadData.sql" | psql voluntariadofinal
     ```
