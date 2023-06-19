@@ -35,7 +35,7 @@ Se debe tener las siguientes tecnologias para la ejecucion optima del proyecto.
 - PgAdmin4
 - IDE Intellij.
 - JDK 17.
-- PostGis.
+- Postgres 12 + PostGis.
 
 ### Clonar el repositorio
 
@@ -43,7 +43,9 @@ La URL es: [https://github.com/kogekii/Lab1TBD-Sistemadevoluntariado](https://gi
 
 ### Base de datos
 
-Se debe crear una base de datos llamada `voluntariadofinal`, la cual sera poblada con el archivo [backup], el cual cuenta con un script de creacion de la base de datos y la pobla con informacion para la utilizacion y pruebas del programa.
+Se debe crear una base de datos llamada `voluntariadofinal`, la cual sera poblada con los archivos SQL que se proveen en el proyecto (en la carpeta `ScriptsBD`), los cuales incluyen: dos scripts de creacion de tablas para la base de datos y un script para poblar con datos para la utilizacion y pruebas del programa.
+
+Las instrucciones sobre como ejecutarlos se encuentran en la seccion [Poblar la base de datos](#poblar-la-base-de-datos)
 
 ### Backend
 
