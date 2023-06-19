@@ -12,24 +12,24 @@ import java.util.Map;
 @RequestMapping("/region")
 public class RegionesService {
 
-    private final RegionesRepository RegionesRepository;
+    private final RegionesRepository regionesRepository;
 
     //Constructor
     RegionesService(RegionesRepository regionesRepository) {
-        this.RegionesRepository = regionesRepository;
+        this.regionesRepository = regionesRepository;
     }
 
     // READ all
     @GetMapping
     @ResponseBody
     public List<Regiones> getAllRegiones() {
-        return RegionesRepository.getAllRegiones();
+        return regionesRepository.getAllRegiones();
     }
 
     // READ one (con geometria como JSON)
     @GetMapping("/geo/{id}")
     @ResponseBody
     public List<Map<String, Object>> getRegionPoly(@PathVariable Long id) {
-        return RegionesRepository.getRegionPoly(id);
+        return regionesRepository.getRegionPoly(id);
     }
 }
