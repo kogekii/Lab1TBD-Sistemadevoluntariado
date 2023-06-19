@@ -198,9 +198,7 @@ CREATE TABLE IF NOT EXISTS public.log_emergencia
     id numeric,
     nombre character varying COLLATE pg_catalog."default",
     descrip character varying COLLATE pg_catalog."default",
-    finicio date,
-    ffin date,
-    id_institucion numeric,
+    fecha date,
     updated_by character varying COLLATE pg_catalog."default",
     updated_at timestamp without time zone,
     llamada character varying COLLATE pg_catalog."default"
@@ -240,8 +238,6 @@ CREATE TABLE IF NOT EXISTS public.log_ranking
     id_voluntario numeric,
     id_tarea numeric,
     puntaje numeric,
-    flg_invitado numeric,
-    flg_participa numeric,
     updated_by character varying COLLATE pg_catalog."default",
     updated_at timestamp without time zone,
     llamada character varying COLLATE pg_catalog."default"
@@ -251,13 +247,9 @@ CREATE TABLE IF NOT EXISTS public.log_tarea
 (
     id numeric,
     nombre character varying COLLATE pg_catalog."default",
-    descrip character varying COLLATE pg_catalog."default",
-    cant_vol_requeridos numeric,
-    cant_vol_inscritos numeric,
+    descripcion character varying COLLATE pg_catalog."default",
+    id_estado_tarea numeric,
     id_emergencia numeric,
-    finicio date,
-    ffin date,
-    id_estado numeric,
     updated_by character varying COLLATE pg_catalog."default",
     updated_at timestamp without time zone,
     llamada character varying COLLATE pg_catalog."default"

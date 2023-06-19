@@ -1,29 +1,35 @@
 <div align="center">
-    <h1> <img src="https://th.bing.com/th/id/R.70c11b59c144e8d8af1a292274043105?rik=qsIhI%2f3hvZdFJQ&pid=ImgRaw&r=0" width="80px"> <br/>Laboratorio 1 y 2 TBD
+    <h1>
+        <img src="https://th.bing.com/th/id/R.70c11b59c144e8d8af1a292274043105?rik=qsIhI%2f3hvZdFJQ&pid=ImgRaw&r=0" width="80px" />
+        <br/>
+        Laboratorio 1 y 2 TBD
     </h1>
 </div>
 
 ## Autores
 
--   [**Esteban Glochon**](https://github.com/EstebanGlochonUSACH)
--   [**Andres Ijura**]()
--   [**Leonardo Muñoz**]()
--   [**Gonzalo Ordenes**](https://github.com/Gonzalo-OrdenesQ)
+- [**Esteban Glochon**](https://github.com/EstebanGlochonUSACH)
+- [**Andres Ijura**](https://github.com/kogekii)
+- [**Leonardo Muñoz**](https://github.com/Leonardo976)
+- [**Gonzalo Ordenes**](https://github.com/Gonzalo-OrdenesQ)
 
-# Descripcion
+# Descripción
 
-En nuestro pais, con la ocurrencia de desastres naturales, se da con frecuencia que voluntarios concurren espontaneamente al sitio del suceso. Si bien su presencia es de gran ayuda, puede resultar dificil coordinar sus esfuerzos para la realizacion de tareas.
-Para este fin, se propone crear un sistema para la gestion del voluntariado espontaneo.
+En nuestro país, con la ocurrencia de desastres naturales, se da con frecuencia que voluntarios concurren espontaneamente al sitio del suceso. Si bien su presencia es de gran ayuda, puede resultar difícil coordinar sus esfuerzos para la realización de tareas.
+Para este fin, se propone crear un sistema para la gestion del voluntariado espontáneo.
 
-# Caracteristicas
+# Características
 
-**Modulo de coordinacion**
-Se construyo un modulo consistente en una aplicación web para la gestion de coordinadores, quienes pueden crear emergencias y tareas, ademas de definir requisitos para cada una de estas.
+**Modulo de coordinación**
 
-**Modulo de voluntariado**
-Por otro lado, se construyo un modulo web para que voluntarios puedan registrarse, crear y editar perfiles, ver y registrarse en emergencias activas, registrar habilidades que posee y puedan ser utiles en una emergencia, ver y aceptar tareas, ademas de actualizar el estado de las mismas.
+Se construyó un modulo consistente en una aplicación web para la gestion de coordinadores, quienes pueden crear emergencias y tareas, además de definir requisitos para cada una de estas.
 
-# Tecnologias tilizadas:
+**Modulo de voluntarios**
+
+Por otro lado, se construyó un modulo web para que voluntarios puedan registrarse, crear y editar perfiles, ver y registrarse en emergencias activas, administrar las habilidades que posee y que puedan ser útiles en una emergencia, ver y aceptar tareas, ademas de poder actualizar el estado de las mismas.
+
+# Tecnologías utilizadas:
+
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![React.js](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=for-the-badge) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 
 ## Instrucciones de Instalación y Ejecución
@@ -115,7 +121,8 @@ La primera es ejecutar los scripts SQL a través de pgadmin. Se puede directamen
 
 1. `dbCreate.sql`
 2. `division_regional.sql`
-3. `loadData.sql`
+3. `procedimiento_almacenado.sql`
+4. `loadData.sql`
 
 > **NOTA**: En el script `dbCreate.sql` se hace referencia a la base de datos `voluntariadofinal`, en caso de que se haya cambiado o se quiera usar otro nombre, se puede simplemente reemplazar antes de ejecutar el script.
 
@@ -129,9 +136,15 @@ La segunda forma (disponible en Linux) es utilizando el comando `psql` que se in
     ```sh
     $ cat "/scripts/division_regional.sql" | psql voluntariadofinal
     ```
-3. Poblar la base de datos con datos de prueba:
+3. Importar procedimientos almacenados:
+    ```sh
+    $ cat "/scripts/procedimiento_almacenado.sql" | psql voluntariadofinal
+    ```
+4. Poblar la base de datos con datos de prueba:
     ```sh
     $ cat "/scripts/loadData.sql" | psql voluntariadofinal
     ```
+
+> **NOTA**: El comando `psql` se debe ejecutar en el contexto del usuario del sistema operativo `postgres`. Se puede cambiar de usuario con el comando `su postgres`.
 
 Notar que la ruta `/scripts/` corresponde a un volúmen montado dentro del contenedor "postgres" a través de docker. Además `voluntariadofinal` corresponde al nombre de la base de datos con la que se esta trabajando. Ambas cosas se deben reemplazar acorde a la situación.

@@ -1,3 +1,457 @@
+
+-- eme-habilidad
+CREATE OR REPLACE FUNCTION eme_habilidades_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_eme_habilidades values 
+  (old.id, old.id_emergencia, old.id_habilidad, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION eme_habilidades_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_eme_habilidades values 
+  (NEW.id, NEW.id_emergencia, NEW.id_habilidad, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION eme_habilidades_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_eme_habilidades values 
+  (old.id, old.id_emergencia, old.id_habilidad, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_eme_habilidad
+BEFORE UPDATE ON eme_habilidad
+FOR EACH ROW
+EXECUTE FUNCTION eme_habilidades_function_update();
+
+CREATE TRIGGER insert_eme_habilidad
+BEFORE INSERT ON eme_habilidad
+FOR EACH ROW
+EXECUTE FUNCTION eme_habilidades_function_insert();
+
+CREATE TRIGGER delete_eme_habilidad
+BEFORE DELETE ON eme_habilidad
+FOR EACH ROW
+EXECUTE FUNCTION eme_habilidades_function_delete();
+
+-- emergencia
+CREATE OR REPLACE FUNCTION emergencia_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_emergencia values 
+  (old.id, old.nombre, old.descripcion, old.fecha, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION emergencia_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_emergencia values 
+  (NEW.id, NEW.nombre, NEW.descripcion, NEW.fecha, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION emergencia_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_emergencia values 
+  (old.id, old.nombre, old.descripcion, old.fecha, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_emergencia
+BEFORE UPDATE ON emergencia
+FOR EACH ROW
+EXECUTE FUNCTION emergencia_function_update();
+
+CREATE TRIGGER insert_emergencia
+BEFORE INSERT ON emergencia
+FOR EACH ROW
+EXECUTE FUNCTION emergencia_function_insert();
+
+CREATE TRIGGER delete_emergencia
+BEFORE DELETE ON emergencia
+FOR EACH ROW
+EXECUTE FUNCTION emergencia_function_delete();
+
+-- estado-tarea
+CREATE OR REPLACE FUNCTION estado_tarea_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_estado_tarea values 
+  (old.id, old.estado, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION estado_tarea_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_estado_tarea values 
+  (NEW.id, NEW.estado, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION estado_tarea_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_estado_tarea values 
+  (old.id, old.estado, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_estado_tarea
+BEFORE UPDATE ON estado_tarea
+FOR EACH ROW
+EXECUTE FUNCTION estado_tarea_function_update();
+
+CREATE TRIGGER insert_estado_tarea
+BEFORE INSERT ON estado_tarea
+FOR EACH ROW
+EXECUTE FUNCTION estado_tarea_function_insert();
+
+CREATE TRIGGER delete_estado_tarea
+BEFORE DELETE ON estado_tarea
+FOR EACH ROW
+EXECUTE FUNCTION estado_tarea_function_delete();
+
+-- habilidad
+CREATE OR REPLACE FUNCTION habilidad_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_habilidad values 
+  (old.id, old.descripcion, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION habilidad_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_habilidad values 
+  (NEW.id, NEW.descripcion, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION habilidad_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_habilidad values 
+  (old.id, old.descripcion, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_habilidad
+BEFORE UPDATE ON habilidad
+FOR EACH ROW
+EXECUTE FUNCTION habilidad_function_update();
+
+CREATE TRIGGER insert_habilidad
+BEFORE INSERT ON habilidad
+FOR EACH ROW
+EXECUTE FUNCTION habilidad_function_insert();
+
+CREATE TRIGGER delete_habilidad
+BEFORE DELETE ON habilidad
+FOR EACH ROW
+EXECUTE FUNCTION habilidad_function_delete();
+
+-- institucion
+
+CREATE OR REPLACE FUNCTION institucion_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_institucion values 
+  (old.id, old.razon_social, NULL, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION institucion_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_institucion values 
+  (NEW.id, NEW.razon_social, NULL, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION institucion_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_institucion values 
+  (old.id, old.razon_social, NULL, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_institucion
+BEFORE UPDATE ON institucion
+FOR EACH ROW
+EXECUTE FUNCTION institucion_function_update();
+
+CREATE TRIGGER insert_institucion
+BEFORE INSERT ON institucion
+FOR EACH ROW
+EXECUTE FUNCTION institucion_function_insert();
+
+CREATE TRIGGER delete_institucion
+BEFORE DELETE ON institucion
+FOR EACH ROW
+EXECUTE FUNCTION institucion_function_delete();
+
+-- ranking 
+
+CREATE OR REPLACE FUNCTION ranking_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_ranking values 
+  (old.id, old.id_voluntario, old.id_tarea, old.puntos, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION ranking_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_ranking values 
+  (NEW.id, NEW.id_voluntario, NEW.id_tarea, NEW.puntos, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION ranking_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_ranking values 
+  (old.id, old.id_voluntario, old.id_tarea, old.puntos, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_ranking
+BEFORE UPDATE ON ranking
+FOR EACH ROW
+EXECUTE FUNCTION ranking_function_update();
+
+CREATE TRIGGER insert_ranking
+BEFORE INSERT ON ranking
+FOR EACH ROW
+EXECUTE FUNCTION ranking_function_insert();
+
+CREATE TRIGGER delete_ranking
+BEFORE DELETE ON ranking
+FOR EACH ROW
+EXECUTE FUNCTION ranking_function_delete();
+
+-- tarea
+CREATE OR REPLACE FUNCTION tarea_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_tarea values 
+  (old.id, old.nombre, old.descripcion, old.id_estado_tarea, old.id_emergencia, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION tarea_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_tarea values 
+  (NEW.id, NEW.nombre, NEW.descripcion, NEW.id_estado_tarea, NEW.id_emergencia, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION tarea_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_tarea values 
+  (old.id, old.nombre, old.descripcion, old.id_estado_tarea, old.id_emergencia, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_tarea
+BEFORE UPDATE ON tarea
+FOR EACH ROW
+EXECUTE FUNCTION tarea_function_update();
+
+CREATE TRIGGER insert_tarea
+BEFORE INSERT ON tarea
+FOR EACH ROW
+EXECUTE FUNCTION tarea_function_insert();
+
+CREATE TRIGGER delete_tarea
+BEFORE DELETE ON tarea
+FOR EACH ROW
+EXECUTE FUNCTION tarea_function_delete();
+
+-- vol-habilidad
+CREATE OR REPLACE FUNCTION vol_habilidad_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_vol_habilidad
+  values
+  (NEW.id, NEW.id_voluntario, NEW.id_habilidad, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION vol_habilidad_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_vol_habilidad 
+  values
+  (old.id, old.id_voluntario, old.id_habilidad, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION vol_habilidad_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_vol_habilidad
+  values
+  (old.id, old.id_voluntario, old.id_habilidad, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER update_vol_habilidad
+BEFORE UPDATE ON vol_habilidad
+FOR EACH ROW
+EXECUTE FUNCTION vol_habilidad_function_update();
+
+CREATE TRIGGER insert_vol_habilidad
+BEFORE INSERT ON vol_habilidad
+FOR EACH ROW
+EXECUTE FUNCTION vol_habilidad_function_insert();
+
+CREATE TRIGGER delete_vol_habilidad
+BEFORE DELETE ON vol_habilidad
+FOR EACH ROW
+EXECUTE FUNCTION vol_habilidad_function_delete();
+
+-- vol-habilidad
+
+CREATE OR REPLACE FUNCTION voluntario_function_insert()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_voluntario
+  values
+  (NEW.id, NEW.correo_electronico, NEW.nombre, NEW.password, current_user, current_timestamp, 'insert');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION voluntario_function_update()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_voluntario 
+  values
+  (old.id, old.correo_electronico, old.nombre, old.password, current_user, current_timestamp, 'update');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION voluntario_function_delete()
+  RETURNS TRIGGER AS
+$BODY$
+BEGIN
+  insert into log_voluntario 
+  values
+  (old.id, old.correo_electronico, old.nombre, old.password, current_user, current_timestamp, 'delete');
+  RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER  update_voluntario
+BEFORE UPDATE ON voluntario
+FOR EACH ROW
+EXECUTE FUNCTION voluntario_function_update();
+
+CREATE TRIGGER insert_voluntario
+BEFORE INSERT ON voluntario
+FOR EACH ROW
+EXECUTE FUNCTION voluntario_function_insert();
+
+CREATE TRIGGER delete_voluntario
+BEFORE DELETE ON voluntario
+FOR EACH ROW
+EXECUTE FUNCTION voluntario_function_delete();
+
 -- Cargado de datos a la base de datos
 
 -- Cargar datos de estado_tarea
@@ -546,457 +1000,3 @@ INSERT INTO voluntario_tarea(id, id_tarea, id_voluntario) VALUES
 (30, 10, 31);
 
 SELECT setval('voluntario_tarea_id_seq', 30, true);
-
--- eme-habilidad
-CREATE OR REPLACE FUNCTION eme_habilidades_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_eme_habilidades values 
-  (old.id, old.id_emergencia, old.id_habilidad, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION eme_habilidades_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_eme_habilidades values 
-  (NEW.id, NEW.id_emergencia, NEW.id_habilidad, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION eme_habilidades_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_eme_habilidades values 
-  (old.id, old.id_emergencia, old.id_habilidad, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_eme_habilidad
-BEFORE UPDATE ON eme_habilidad
-FOR EACH ROW
-EXECUTE FUNCTION eme_habilidades_function_update();
-
-CREATE TRIGGER insert_eme_habilidad
-BEFORE INSERT ON eme_habilidad
-FOR EACH ROW
-EXECUTE FUNCTION eme_habilidades_function_insert();
-
-CREATE TRIGGER delete_eme_habilidad
-BEFORE DELETE ON eme_habilidad
-FOR EACH ROW
-EXECUTE FUNCTION eme_habilidades_function_delete();
-
--- emergencia
-CREATE OR REPLACE FUNCTION emergencia_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_emergencia values 
-  (old.id, old.nombre, old.descrip, old.finicio, old.ffin, old.id_institucion, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-
-CREATE OR REPLACE FUNCTION emergencia_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_emergencia values 
-  (NEW.id, NEW.nombre, NEW.descrip, NEW.finicio, NEW.ffin, NEW.id_institucion, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION emergencia_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_emergencia values 
-  (old.id, old.nombre, old.descrip, old.finicio, old.ffin, old.id_institucion, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_emergencia
-BEFORE UPDATE ON emergencia
-FOR EACH ROW
-EXECUTE FUNCTION emergencia_function_update();
-
-CREATE TRIGGER insert_emergencia
-BEFORE INSERT ON emergencia
-FOR EACH ROW
-EXECUTE FUNCTION emergencia_function_insert();
-
-CREATE TRIGGER delete_emergencia
-BEFORE DELETE ON emergencia
-FOR EACH ROW
-EXECUTE FUNCTION emergencia_function_delete();
-
--- estado-tarea
-CREATE OR REPLACE FUNCTION estado_tarea_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_estado_tarea values 
-  (old.id, old.descrip, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION estado_tarea_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_estado_tarea values 
-  (NEW.id, NEW.descrip, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION estado_tarea_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_estado_tarea values 
-  (old.id, old.descrip, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_estado_tarea
-BEFORE UPDATE ON estado_tarea
-FOR EACH ROW
-EXECUTE FUNCTION estado_tarea_function_update();
-
-CREATE TRIGGER insert_estado_tarea
-BEFORE INSERT ON estado_tarea
-FOR EACH ROW
-EXECUTE FUNCTION estado_tarea_function_insert();
-
-CREATE TRIGGER delete_estado_tarea
-BEFORE DELETE ON estado_tarea
-FOR EACH ROW
-EXECUTE FUNCTION estado_tarea_function_delete();
-
--- habilidad
-CREATE OR REPLACE FUNCTION habilidad_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_habilidad values 
-  (old.id, old.descrip, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION habilidad_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_habilidad values 
-  (NEW.id, NEW.descrip, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION habilidad_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_habilidad values 
-  (old.id, old.descrip, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_habilidad
-BEFORE UPDATE ON habilidad
-FOR EACH ROW
-EXECUTE FUNCTION habilidad_function_update();
-
-CREATE TRIGGER insert_habilidad
-BEFORE INSERT ON habilidad
-FOR EACH ROW
-EXECUTE FUNCTION habilidad_function_insert();
-
-CREATE TRIGGER delete_habilidad
-BEFORE DELETE ON habilidad
-FOR EACH ROW
-EXECUTE FUNCTION habilidad_function_delete();
-
--- institucion
-
-CREATE OR REPLACE FUNCTION institucion_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_institucion values 
-  (old.id, old.nombre, old.descrip, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION institucion_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_institucion values 
-  (NEW.id, NEW.nombre, NEW.descrip, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION institucion_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_institucion values 
-  (old.id, old.nombre, old.descrip, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_institucion
-BEFORE UPDATE ON institucion
-FOR EACH ROW
-EXECUTE FUNCTION institucion_function_update();
-
-CREATE TRIGGER insert_institucion
-BEFORE INSERT ON institucion
-FOR EACH ROW
-EXECUTE FUNCTION institucion_function_insert();
-
-CREATE TRIGGER delete_institucion
-BEFORE DELETE ON institucion
-FOR EACH ROW
-EXECUTE FUNCTION institucion_function_delete();
-
--- ranking 
-
-CREATE OR REPLACE FUNCTION ranking_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_ranking values 
-  (old.id, old.id_voluntario, old.id_tarea, old.puntaje, old.flg_invitado, old.flg_participa, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION ranking_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_ranking values 
-  (NEW.id, NEW.id_voluntario, NEW.id_tarea, NEW.puntaje, NEW.flg_invitado, NEW.flg_participa, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION ranking_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_ranking values 
-  (old.id, old.id_voluntario, old.id_tarea, old.puntaje, old.flg_invitado, old.flg_participa, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_ranking
-BEFORE UPDATE ON ranking
-FOR EACH ROW
-EXECUTE FUNCTION ranking_function_update();
-
-CREATE TRIGGER insert_ranking
-BEFORE INSERT ON ranking
-FOR EACH ROW
-EXECUTE FUNCTION ranking_function_insert();
-
-CREATE TRIGGER delete_ranking
-BEFORE DELETE ON ranking
-FOR EACH ROW
-EXECUTE FUNCTION ranking_function_delete();
-
--- tarea
-CREATE OR REPLACE FUNCTION tarea_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_tarea values 
-  (old.id, old.nombre, old.descrip, old.cant_vol_requeridos, old.cant_vol_inscritos, old.id_emergencia, old.finicio, old.ffin, old.id_estado, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION tarea_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_tarea values 
-  (NEW.id, NEW.nombre, NEW.descrip, NEW.cant_vol_requeridos, NEW.cant_vol_inscritos, NEW.id_emergencia, NEW.finicio, NEW.ffin, NEW.id_estado, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION tarea_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_tarea values 
-  (old.id, old.nombre, old.descrip, old.cant_vol_requeridos, old.cant_vol_inscritos, old.id_emergencia, old.finicio, old.ffin, old.id_estado, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER update_tarea
-BEFORE UPDATE ON tarea
-FOR EACH ROW
-EXECUTE FUNCTION tarea_function_update();
-
-CREATE TRIGGER insert_tarea
-BEFORE INSERT ON tarea
-FOR EACH ROW
-EXECUTE FUNCTION tarea_function_insert();
-
-CREATE TRIGGER delete_tarea
-BEFORE DELETE ON tarea
-FOR EACH ROW
-EXECUTE FUNCTION tarea_function_delete();
-
--- vol-habilidad
-CREATE OR REPLACE FUNCTION vol_habilidad_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_vol_habilidad
-  values
-  (NEW.id, NEW.id_voluntario, NEW.id_habilidad, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION vol_habilidad_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_vol_habilidad 
-  values
-  (old.id, old.id_voluntario, old.id_habilidad, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION vol_habilidad_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_vol_habilidad
-  values
-  (old.id, old.id_voluntario, old.id_habilidad, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-
-CREATE TRIGGER update_vol_habilidad
-BEFORE UPDATE ON vol_habilidad
-FOR EACH ROW
-EXECUTE FUNCTION vol_habilidad_function_update();
-
-CREATE TRIGGER insert_vol_habilidad
-BEFORE INSERT ON vol_habilidad
-FOR EACH ROW
-EXECUTE FUNCTION vol_habilidad_function_insert();
-
-CREATE TRIGGER delete_vol_habilidad
-BEFORE DELETE ON vol_habilidad
-FOR EACH ROW
-EXECUTE FUNCTION vol_habilidad_function_delete();
-
--- vol-habilidad
-
-CREATE OR REPLACE FUNCTION voluntario_function_insert()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_voluntario
-  values
-  (NEW.id, NEW.email, NEW.nombre, NEW.password, current_user, current_timestamp, 'insert');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION voluntario_function_update()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_voluntario 
-  values
-  (old.id, old.email, old.nombre, old.password, current_user, current_timestamp, 'update');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION voluntario_function_delete()
-  RETURNS TRIGGER AS
-$BODY$
-BEGIN
-  insert into log_voluntario 
-  values
-  (old.id, old.email, old.nombre, old.password, current_user, current_timestamp, 'delete');
-  RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-
-CREATE TRIGGER  update_voluntario
-BEFORE UPDATE ON voluntario
-FOR EACH ROW
-EXECUTE FUNCTION voluntario_function_update();
-
-CREATE TRIGGER insert_voluntario
-BEFORE INSERT ON voluntario
-FOR EACH ROW
-EXECUTE FUNCTION voluntario_function_insert();
-
-CREATE TRIGGER delete_voluntario
-BEFORE DELETE ON voluntario
-FOR EACH ROW
-EXECUTE FUNCTION voluntario_function_delete();
-
